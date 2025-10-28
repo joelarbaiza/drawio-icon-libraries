@@ -19,14 +19,13 @@ Colección de **librerías de iconos para Draw.io / diagrams.net** en formato `.
 
 ## 🧭 Índice
 
-- [✅ Requisitos](README.md#requisitos)
-- [📚 Librerías incluidas](README.md#librerías-incluidas)
-- [🚀 Uso rápido en Draw.io/diagrams.net](README.md#uso-rápido-en-drawiodiagramsnet)
-- [⬇️ Descarga](README.md#descarga)
-- [⭐ Apóyame con una estrella](README.md#apóyame-con-una-estrella)
-- [🤝 Contribuir](README.md#contribuir)
-- [👤 Autor](README.md#autor)
-
+- [✅ Requisitos](#requisitos)
+- [📚 Librerías incluidas](#librerías-incluidas)
+- [🚀 Uso rápido en Draw.io/diagrams.net](#uso-rápido-en-drawiodiagramsnet)
+- [⬇️ Descarga](#descarga)
+- [⭐ Apóyame con una estrella](#apóyame-con-una-estrella)
+- [🤝 Contribuir](#contribuir)
+- [👤 Autor](#autor)
 
 ---
 
@@ -99,11 +98,10 @@ Cada elemento lleva `w:64`, `h:64`, `aspect:"fixed"`, `title` (desde el nombre d
 
 ## ⬇️ Descarga
 
-<a href="https://download-directory.github.io/?url=https://github.com/joelarbaiza/drawio-icon-libraries/tree/main/libraries"
-   target="_blank" rel="noopener noreferrer">
-  <img src="https://img.shields.io/badge/Descargar--solo--/libraries-ZIP-brightgreen"
-       alt="Descargar solo /libraries (ZIP)">
-</a>
+[![Descargar solo /libraries (ZIP)](https://img.shields.io/badge/Descargar--solo--/libraries-ZIP-brightgreen)](https://download-directory.github.io/?url=https://github.com/joelarbaiza/drawio-icon-libraries/tree/main/libraries)
+  
+> Sugerencia: **Ctrl/⌘ + clic** o **clic medio de rueda/scroll** para abrir en una pestaña nueva ↗
+
 
 
 ---
