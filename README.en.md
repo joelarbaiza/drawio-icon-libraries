@@ -19,13 +19,13 @@ Collection of **icon libraries for Draw.io / diagrams.net** in `.xml` (**mxlibra
 
 ## 🧭 Table of contents
 
-- [✅ Requirements](#requirements)
-- [📚 Included libraries](#included-libraries)
-- [🚀 Quick usage in Draw.io/diagrams.net](#quick-usage-in-drawiodiagramsnet)
-- [⬇️ Download](#download)
-- [⭐ Support with a star](#support-with-a-star)
-- [🤝 Contributing](#contributing)
-- [👤 Author](#author)
+- [✅ Requirements](README.en.md#requirements)
+- [📚 Included libraries](README.en.md#included-libraries)
+- [🚀 Quick usage in Draw.io/diagrams.net](README.en.md#quick-usage-in-drawiodiagramsnet)
+- [⬇️ Download](README.en.md#download)
+- [⭐ Support with a star](README.en.md#support-with-a-star)
+- [🤝 Contributing](README.en.md#contributing)
+- [👤 Author](README.en.md#author)
 
 ---
 
@@ -98,7 +98,11 @@ Each entry uses `w:64`, `h:64`, `aspect:"fixed"`, `title` (from the file name) a
 
 ## ⬇️ Download
 
-[![Download only /libraries (ZIP)](https://img.shields.io/badge/Descargar--solo--/libraries-ZIP-brightgreen)](https://download-directory.github.io/?url=https://github.com/joelarbaiza/drawio-icon-libraries/tree/main/libraries)
+<a href="https://download-directory.github.io/?url=https://github.com/joelarbaiza/drawio-icon-libraries/tree/main/libraries"
+   target="_blank" rel="noopener noreferrer">
+  <img src="https://img.shields.io/badge/Descargar--solo--/libraries-ZIP-brightgreen"
+       alt="Descargar solo /libraries (ZIP)">
+</a>
 
 ---
 
