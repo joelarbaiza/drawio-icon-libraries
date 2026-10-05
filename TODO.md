@@ -14,7 +14,7 @@ Etapa 0 ──> Etapa 1 ──> Etapa 2 ──> Etapa 3 ──> Etapa 5 ──> 
 | 0 | Validador + tag de seguridad | ½ día | — | ✅ |
 | 1 | `build.py` + manifiesto | 1–2 días | 0 | ✅ |
 | 2 | Títulos limpios | ½ día | 1 | ✅ |
-| 3 | Borrar peso y notebooks | ½ día | 1 | ⬜ |
+| 3 | Borrar peso y notebooks | ½ día | 1 | ✅ (falta force-push) |
 | 4 | Iconos raster → vectorial | variable | — (paralela) | ⬜ |
 | 5 | CI + releases | ½ día | 0, 2 | ⬜ |
 | 6 | Documentación | 1 día | 1, 3 | ⬜ |
@@ -156,9 +156,26 @@ Estado del repo en el commit `8110279`, medido con un script de validación:
 
 **Punto de decisión (no es un paso):**
 
-- [ ] Borrar del árbol **no** reduce el tamaño del clon; los 33 MB siguen en `.git`. El repo tiene 5 commits y un solo autor: `git filter-repo` es viable ahora y doloroso después. Requiere force-push. Decidir sí/no.
+- [x] Borrar del árbol **no** reduce el tamaño del clon; los 33 MB siguen en `.git`. → **Decidido: sí** (05-10-2026). Historial reescrito con `git filter-repo --invert-paths --path svg/Fabric/png --path "svg/Fabric/svg all"`.
+  - Respaldo previo: `C:\GitHub\drawio-icon-libraries-backup-2026-10-05.bundle` (todas las ramas y tags; restaurar con `git clone <bundle>`).
+  - Verificado: los 10 commits reescritos tienen el mismo árbol (salvo las dos carpetas) y los mismos autor, fecha y mensaje; ningún commit contiene ya esas rutas.
+  - [ ] **Pendiente del mantenedor:** force-push de `main` y `feat/pipeline-refactor` (ver comando abajo). Cualquier otro clon del repo debe volver a clonarse.
 
 **Hecho cuando:** repo sin `.git` < 20 MB; `git ls-files | wc -l` < 1.500.
+
+✅ **Completada** salvo el force-push. Resultados:
+- `git ls-files`: 4.511 → **1.484** archivos ✅.
+- `.git`: 39 MB → **14 MB** (pack de 32,6 → 12,9 MiB) ✅.
+- Repo sin `.git`: 60 → **27 MB** ❌ (objetivo 20 MB). 16 MB son los iconos raster de Office 365 y Operating Systems (`svg/` + `libraries/`): el objetivo se cumplirá con la **etapa 4**.
+- `pack --check`, `validate.py` y `compare.py --ref v0-legacy`: OK.
+
+Comando de force-push (protegido: falla si alguien más ha subido cambios desde `8110279` / `a41568a`):
+
+```bash
+git push --force-with-lease=main:81102793a764f8040699fd3b6ed7ce01ecc6be60 \
+         --force-with-lease=feat/pipeline-refactor:a41568a48ed027ed8253ac79aacd40a77d03539b \
+         origin main feat/pipeline-refactor
+```
 
 ---
 
