@@ -7,8 +7,8 @@ Estructura::
       "libraries": [
         {
           "name": "Azure Compute",
-          "source": "svg/Azure/Azure Compute/SVG_18",       # SVG originales
-          "normalized": "svg/Azure/Azure Compute/SVG_64",   # SVG 64×64 (commiteados)
+          "source": "svg/Azure/Azure Compute/source",       # SVG originales
+          "normalized": "svg/Azure/Azure Compute/64",       # SVG 64×64 (commiteados)
           "output": "libraries/Azure/Azure Compute/Azure Compute.xml",
           "title_rules": [],                                # ver iconlib/titles.py
           "title_overrides": {"archivo-sin-svg": "Título"}  # opcional, gana a title_rules

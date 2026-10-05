@@ -9,8 +9,8 @@
   "libraries": [
     {
       "name": "Azure AI + Machine Learning",
-      "source": "svg/Azure/Azure AI + Machine Learning/SVG_18",
-      "normalized": "svg/Azure/Azure AI + Machine Learning/SVG_64",
+      "source": "svg/Azure/Azure AI + Machine Learning/source",
+      "normalized": "svg/Azure/Azure AI + Machine Learning/64",
       "output": "libraries/Azure/Azure AI + Machine Learning/Azure AI + Machine Learning.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -19,8 +19,8 @@
     },
     {
       "name": "Azure Analytics",
-      "source": "svg/Azure/Azure Analytics/SVG_18",
-      "normalized": "svg/Azure/Azure Analytics/SVG_64",
+      "source": "svg/Azure/Azure Analytics/source",
+      "normalized": "svg/Azure/Azure Analytics/64",
       "output": "libraries/Azure/Azure Analytics/Azure Analytics.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -29,8 +29,8 @@
     },
     {
       "name": "Azure App Services",
-      "source": "svg/Azure/Azure App Services/SVG_18",
-      "normalized": "svg/Azure/Azure App Services/SVG_64",
+      "source": "svg/Azure/Azure App Services/source",
+      "normalized": "svg/Azure/Azure App Services/64",
       "output": "libraries/Azure/Azure App Services/Azure App Services.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -39,8 +39,8 @@
     },
     {
       "name": "Azure Blockchain",
-      "source": "svg/Azure/Azure Blockchain/SVG_18",
-      "normalized": "svg/Azure/Azure Blockchain/SVG_64",
+      "source": "svg/Azure/Azure Blockchain/source",
+      "normalized": "svg/Azure/Azure Blockchain/64",
       "output": "libraries/Azure/Azure Blockchain/Azure Blockchain.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -49,8 +49,8 @@
     },
     {
       "name": "Azure Compute",
-      "source": "svg/Azure/Azure Compute/SVG_18",
-      "normalized": "svg/Azure/Azure Compute/SVG_64",
+      "source": "svg/Azure/Azure Compute/source",
+      "normalized": "svg/Azure/Azure Compute/64",
       "output": "libraries/Azure/Azure Compute/Azure Compute.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -62,8 +62,8 @@
     },
     {
       "name": "Azure Containers",
-      "source": "svg/Azure/Azure Containers/SVG_18",
-      "normalized": "svg/Azure/Azure Containers/SVG_64",
+      "source": "svg/Azure/Azure Containers/source",
+      "normalized": "svg/Azure/Azure Containers/64",
       "output": "libraries/Azure/Azure Containers/Azure Containers.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -72,8 +72,8 @@
     },
     {
       "name": "Azure Databases",
-      "source": "svg/Azure/Azure Databases/SVG_18",
-      "normalized": "svg/Azure/Azure Databases/SVG_64",
+      "source": "svg/Azure/Azure Databases/source",
+      "normalized": "svg/Azure/Azure Databases/64",
       "output": "libraries/Azure/Azure Databases/Azure Databases.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -82,8 +82,8 @@
     },
     {
       "name": "Azure DevOps",
-      "source": "svg/Azure/Azure DevOps/SVG_18",
-      "normalized": "svg/Azure/Azure DevOps/SVG_64",
+      "source": "svg/Azure/Azure DevOps/source",
+      "normalized": "svg/Azure/Azure DevOps/64",
       "output": "libraries/Azure/Azure DevOps/Azure DevOps.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -92,8 +92,8 @@
     },
     {
       "name": "Azure General",
-      "source": "svg/Azure/Azure General/SVG_18",
-      "normalized": "svg/Azure/Azure General/SVG_64",
+      "source": "svg/Azure/Azure General/source",
+      "normalized": "svg/Azure/Azure General/64",
       "output": "libraries/Azure/Azure General/Azure General.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -102,8 +102,8 @@
     },
     {
       "name": "Azure Identity",
-      "source": "svg/Azure/Azure Identity/SVG_18",
-      "normalized": "svg/Azure/Azure Identity/SVG_64",
+      "source": "svg/Azure/Azure Identity/source",
+      "normalized": "svg/Azure/Azure Identity/64",
       "output": "libraries/Azure/Azure Identity/Azure Identity.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -112,8 +112,8 @@
     },
     {
       "name": "Azure Integration",
-      "source": "svg/Azure/Azure Integration/SVG_18",
-      "normalized": "svg/Azure/Azure Integration/SVG_64",
+      "source": "svg/Azure/Azure Integration/source",
+      "normalized": "svg/Azure/Azure Integration/64",
       "output": "libraries/Azure/Azure Integration/Azure Integration.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -122,8 +122,8 @@
     },
     {
       "name": "Azure Intune",
-      "source": "svg/Azure/Azure Intune/SVG_18",
-      "normalized": "svg/Azure/Azure Intune/SVG_64",
+      "source": "svg/Azure/Azure Intune/source",
+      "normalized": "svg/Azure/Azure Intune/64",
       "output": "libraries/Azure/Azure Intune/Azure Intune.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -132,8 +132,8 @@
     },
     {
       "name": "Azure IoT",
-      "source": "svg/Azure/Azure IoT/SVG_18",
-      "normalized": "svg/Azure/Azure IoT/SVG_64",
+      "source": "svg/Azure/Azure IoT/source",
+      "normalized": "svg/Azure/Azure IoT/64",
       "output": "libraries/Azure/Azure IoT/Azure IoT.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -142,8 +142,8 @@
     },
     {
       "name": "Azure Management + Governance",
-      "source": "svg/Azure/Azure Management + Governance/SVG_18",
-      "normalized": "svg/Azure/Azure Management + Governance/SVG_64",
+      "source": "svg/Azure/Azure Management + Governance/source",
+      "normalized": "svg/Azure/Azure Management + Governance/64",
       "output": "libraries/Azure/Azure Management + Governance/Azure Management + Governance.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -152,8 +152,8 @@
     },
     {
       "name": "Azure Migration",
-      "source": "svg/Azure/Azure Migration/SVG_18",
-      "normalized": "svg/Azure/Azure Migration/SVG_64",
+      "source": "svg/Azure/Azure Migration/source",
+      "normalized": "svg/Azure/Azure Migration/64",
       "output": "libraries/Azure/Azure Migration/Azure Migration.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -162,8 +162,8 @@
     },
     {
       "name": "Azure Monitor",
-      "source": "svg/Azure/Azure Monitor/SVG_18",
-      "normalized": "svg/Azure/Azure Monitor/SVG_64",
+      "source": "svg/Azure/Azure Monitor/source",
+      "normalized": "svg/Azure/Azure Monitor/64",
       "output": "libraries/Azure/Azure Monitor/Azure Monitor.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -172,8 +172,8 @@
     },
     {
       "name": "Azure Networking",
-      "source": "svg/Azure/Azure Networking/SVG_18",
-      "normalized": "svg/Azure/Azure Networking/SVG_64",
+      "source": "svg/Azure/Azure Networking/source",
+      "normalized": "svg/Azure/Azure Networking/64",
       "output": "libraries/Azure/Azure Networking/Azure Networking.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -182,8 +182,8 @@
     },
     {
       "name": "Azure Security",
-      "source": "svg/Azure/Azure Security/SVG_18",
-      "normalized": "svg/Azure/Azure Security/SVG_64",
+      "source": "svg/Azure/Azure Security/source",
+      "normalized": "svg/Azure/Azure Security/64",
       "output": "libraries/Azure/Azure Security/Azure Security.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -192,8 +192,8 @@
     },
     {
       "name": "Azure Storage",
-      "source": "svg/Azure/Azure Storage/SVG_18",
-      "normalized": "svg/Azure/Azure Storage/SVG_64",
+      "source": "svg/Azure/Azure Storage/source",
+      "normalized": "svg/Azure/Azure Storage/64",
       "output": "libraries/Azure/Azure Storage/Azure Storage.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -202,8 +202,8 @@
     },
     {
       "name": "Azure Web",
-      "source": "svg/Azure/Azure Web/SVG_18",
-      "normalized": "svg/Azure/Azure Web/SVG_64",
+      "source": "svg/Azure/Azure Web/source",
+      "normalized": "svg/Azure/Azure Web/64",
       "output": "libraries/Azure/Azure Web/Azure Web.xml",
       "title_rules": [
         "strip_azure_prefix",
@@ -212,15 +212,15 @@
     },
     {
       "name": "Developing",
-      "source": "svg/Developing/SVG_96",
-      "normalized": "svg/Developing/SVG_64",
+      "source": "svg/Developing/source",
+      "normalized": "svg/Developing/64",
       "output": "libraries/Developing/Developing.xml",
       "title_rules": []
     },
     {
       "name": "Dynamics 365",
-      "source": "svg/Dynamics 365/Dynamics 365 App Icons/SVG_96",
-      "normalized": "svg/Dynamics 365/Dynamics 365 App Icons/SVG_64",
+      "source": "svg/Dynamics 365/Dynamics 365 App Icons/source",
+      "normalized": "svg/Dynamics 365/Dynamics 365 App Icons/64",
       "output": "libraries/Dynamics 365/Dynamics 365 App Icons/Dynamics 365.xml",
       "title_rules": [
         "strip_scalable",
@@ -229,8 +229,8 @@
     },
     {
       "name": "Dynamics 365 Mixed Reality",
-      "source": "svg/Dynamics 365/Dynamics 365 Mixed Reality Icons/SVG_96",
-      "normalized": "svg/Dynamics 365/Dynamics 365 Mixed Reality Icons/SVG_64",
+      "source": "svg/Dynamics 365/Dynamics 365 Mixed Reality Icons/source",
+      "normalized": "svg/Dynamics 365/Dynamics 365 Mixed Reality Icons/64",
       "output": "libraries/Dynamics 365/Dynamics 365 Mixed Reality Icons/Dynamics 365 Mixed Reality.xml",
       "title_rules": [
         "strip_scalable",
@@ -239,8 +239,8 @@
     },
     {
       "name": "Dynamics 365 sub app icons",
-      "source": "svg/Dynamics 365/Dynamics 365 Sub App Icons/SVG_96",
-      "normalized": "svg/Dynamics 365/Dynamics 365 Sub App Icons/SVG_64",
+      "source": "svg/Dynamics 365/Dynamics 365 Sub App Icons/source",
+      "normalized": "svg/Dynamics 365/Dynamics 365 Sub App Icons/64",
       "output": "libraries/Dynamics 365/Dynamics 365 Sub App Icons/Dynamics 365 sub app icons.xml",
       "title_rules": [
         "strip_scalable",
@@ -249,8 +249,8 @@
     },
     {
       "name": "Microsoft Fabric",
-      "source": "svg/Fabric/svg/SVG_48",
-      "normalized": "svg/Fabric/svg/SVG_64",
+      "source": "svg/Fabric/source",
+      "normalized": "svg/Fabric/64",
       "output": "libraries/Fabric/Microsoft Fabric.xml",
       "title_rules": [
         "fabric_suffix"
@@ -258,8 +258,8 @@
     },
     {
       "name": "Microsoft Entra ID",
-      "source": "svg/Microsoft Entra ID/SVG_96",
-      "normalized": "svg/Microsoft Entra ID/SVG_64",
+      "source": "svg/Microsoft Entra ID/source",
+      "normalized": "svg/Microsoft Entra ID/64",
       "output": "libraries/Microsoft Entra ID/Microsoft Entra ID.xml",
       "title_rules": [
         "strip_color_icon"
@@ -267,22 +267,22 @@
     },
     {
       "name": "Office 365",
-      "source": "svg/Office 365/SVG_96",
-      "normalized": "svg/Office 365/SVG_64",
+      "source": "svg/Office 365/source",
+      "normalized": "svg/Office 365/64",
       "output": "libraries/Office 365/Office 365.xml",
       "title_rules": []
     },
     {
       "name": "Operating Systems",
-      "source": "svg/Operating Systems/SVG_96",
-      "normalized": "svg/Operating Systems/SVG_64",
+      "source": "svg/Operating Systems/source",
+      "normalized": "svg/Operating Systems/64",
       "output": "libraries/Operating Systems/Operating Systems.xml",
       "title_rules": []
     },
     {
       "name": "Power Platform",
-      "source": "svg/Power Platform/SVG_96",
-      "normalized": "svg/Power Platform/SVG_64",
+      "source": "svg/Power Platform/source",
+      "normalized": "svg/Power Platform/64",
       "output": "libraries/Power Platform/Power Platform.xml",
       "title_rules": [
         "strip_scalable",
@@ -291,8 +291,8 @@
     },
     {
       "name": "Programming",
-      "source": "svg/Programming/SVG_96",
-      "normalized": "svg/Programming/SVG_64",
+      "source": "svg/Programming/source",
+      "normalized": "svg/Programming/64",
       "output": "libraries/Programming/Programming.xml",
       "title_rules": []
     }

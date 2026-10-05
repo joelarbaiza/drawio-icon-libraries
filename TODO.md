@@ -147,10 +147,11 @@ Estado del repo en el commit `8110279`, medido con un script de validación:
 
 **Objetivo:** que clonar y navegar el repo sea rápido y no haya nada que confunda.
 
-- [ ] Borrar `svg/Fabric/png/` y `svg/Fabric/svg all/` (3.010 archivos, 33 MB). Documentar en `docs/SOURCES.md` el enlace al paquete oficial de Microsoft del que salieron.
-- [ ] Borrar `scripts/Fabric/remove.ipynb`.
-- [ ] Borrar los 30 notebooks ya reemplazados por `build.py`. Si se quiere conservar uno como tutorial, dejar **un solo** `docs/notebooks/ejemplo.ipynb` sin salidas (`nbstripout`).
-- [ ] Unificar la estructura de `svg/` a un patrón único: `svg/<categoría>/source/` (originales, hoy `SVG_18` / `SVG_48` / `SVG_96`) y `svg/<categoría>/64/` (normalizados, commiteados).
+- [x] Borrar `svg/Fabric/png/` y `svg/Fabric/svg all/` (3.010 archivos, 33 MB). Origen documentado en `docs/SOURCES.md`.
+- [x] Borrar `scripts/Fabric/remove.ipynb`.
+- [x] Borrar los 30 notebooks ya reemplazados por `build.py` (no se conserva ninguno: `build.py` cubre todo su código; siguen disponibles en el tag `v0-legacy`).
+- [x] Unificar la estructura de `svg/` a un patrón único: `svg/<librería>/source/` (originales, antes `SVG_18` / `SVG_48` / `SVG_96`) y `svg/<librería>/64/` (normalizados, commiteados). Fabric pasa de `svg/Fabric/svg/SVG_48` a `svg/Fabric/source`.
+- [x] Crear `docs/SOURCES.md` con el paquete de origen de cada librería, extraído de las rutas de los notebooks (URLs y licencias pendientes de verificar en la etapa 6).
 - [x] ~~Añadir `.gitattributes`~~ → hecho en la etapa 1.
 
 **Punto de decisión (no es un paso):**

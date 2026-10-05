@@ -1,6 +1,6 @@
 """Genera las librerías de iconos de Draw.io a partir de los SVG del repositorio.
 
-Flujo:  svg/<…>/<origen>  --normalize-->  svg/<…>/SVG_64  --pack-->  libraries/<…>.xml
+Flujo:  svg/<…>/source  --normalize-->  svg/<…>/64  --pack-->  libraries/<…>.xml
 
 Uso:
     python scripts/build.py list
