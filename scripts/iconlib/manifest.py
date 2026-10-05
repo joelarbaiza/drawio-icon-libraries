@@ -10,7 +10,8 @@ Estructura::
           "source": "svg/Azure/Azure Compute/SVG_18",       # SVG originales
           "normalized": "svg/Azure/Azure Compute/SVG_64",   # SVG 64×64 (commiteados)
           "output": "libraries/Azure/Azure Compute/Azure Compute.xml",
-          "title_rules": []                                 # ver iconlib/titles.py
+          "title_rules": [],                                # ver iconlib/titles.py
+          "title_overrides": {"archivo-sin-svg": "Título"}  # opcional, gana a title_rules
         }
       ]
     }
@@ -37,6 +38,8 @@ class Library:
     normalized: Path
     output: Path
     title_rules: tuple[str, ...] = field(default_factory=tuple)
+    # Título fijo por nombre de archivo (sin .svg); tiene prioridad sobre title_rules.
+    title_overrides: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -101,12 +104,18 @@ def load(root: Path) -> Manifest:
         if not isinstance(rules, list):
             raise ValueError(f"{path}: title_rules de {name!r} debe ser una lista, p. ej. [\"dash_to_space\"]")
         check_rules(rules)
+        overrides = entry.get("title_overrides", {})
+        if not isinstance(overrides, dict) or not all(
+            isinstance(k, str) and isinstance(v, str) and v.strip() for k, v in overrides.items()
+        ):
+            raise ValueError(f"{path}: title_overrides de {name!r} debe ser un objeto {{\"archivo-sin-.svg\": \"Título\"}}")
         lib = Library(
             name=name,
             source=root / entry["source"],
             normalized=root / entry["normalized"],
             output=root / entry["output"],
             title_rules=tuple(rules),
+            title_overrides=dict(overrides),
         )
         if lib.source.resolve() == lib.normalized.resolve():
             raise ValueError(f"{path}: {name!r} tiene source == normalized; normalize sobrescribiría los originales")

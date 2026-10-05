@@ -13,7 +13,7 @@ Etapa 0 ──> Etapa 1 ──> Etapa 2 ──> Etapa 3 ──> Etapa 5 ──> 
 |---|---|---|---|---|
 | 0 | Validador + tag de seguridad | ½ día | — | ✅ |
 | 1 | `build.py` + manifiesto | 1–2 días | 0 | ✅ |
-| 2 | Títulos limpios | ½ día | 1 | ⬜ |
+| 2 | Títulos limpios | ½ día | 1 | ✅ |
 | 3 | Borrar peso y notebooks | ½ día | 1 | ⬜ |
 | 4 | Iconos raster → vectorial | variable | — (paralela) | ⬜ |
 | 5 | CI + releases | ½ día | 0, 2 | ⬜ |
@@ -108,7 +108,7 @@ Estado del repo en el commit `8110279`, medido con un script de validación:
 - `compare.py --ref v0-legacy`: 717/717 SVG «solo EOL», 0 distintos, 0 títulos/atributos cambiados.
 - `build.py pack --check`: 30 librerías al día.
 - Geometría de `normalize`: sustituyendo la medición de Inkscape por el bbox recuperado del `transform` de cada SVG commiteado, 717/717 salidas idénticas byte a byte.
-- ⚠️ **Sin probar:** la medición real con Inkscape + Pillow (Inkscape no está instalado en la máquina de desarrollo). Re-normalizar con otra versión de Inkscape **nunca** será idéntico byte a byte (el raster cambia el bbox → cambian los decimales del `transform`): cualquier prueba futura de `normalize` debe usar tolerancia numérica.
+- ✅ ~~Sin probar la medición real con Inkscape~~ → probada en la etapa 2 (21/21 idénticos con Inkscape 1.4.4). Re-normalizar con otra versión de Inkscape **nunca** será idéntico byte a byte (el raster cambia el bbox → cambian los decimales del `transform`): cualquier prueba futura de `normalize` debe usar tolerancia numérica.
 - Revisión adversarial (4 enfoques: fidelidad, multiplataforma, CLI, robustez; 2 verificadores por hallazgo): 26 hallazgos confirmados (~13 problemas distintos), todos corregidos y con prueba. Entre ellos: `normalize` fallaba siempre por un argumento ausente; `--dry-run` exigía Inkscape; normalizar un SVG ya normalizado lo deformaba sin avisar; SVG huérfanos en `SVG_64/` se seguían empaquetando (ahora `pack` falla y `normalize --prune` los elimina); `--inkscape` inválido se ignoraba; claves erróneas en `libraries.json` daban traceback.
 - Los XML regenerados (solo cambian CRLF → LF) **no se commitean en esta etapa**: se commitean una sola vez en la etapa 2 junto con los títulos limpios.
 
@@ -119,16 +119,27 @@ Estado del repo en el commit `8110279`, medido con un script de validación:
 **Objetivo:** que el nombre que ve el usuario en Draw.io sea legible y buscable.
 
 - [ ] Implementar en `scripts/lib/titles.py` las reglas:
-  - [ ] `^\d+-icon-service-` → quitar (Azure, 511 ítems / 432 iconos únicos).
-  - [ ] `-` → espacio.
-  - [ ] ` scalable$` → quitar (Dynamics 365, Power Platform; 46 ítems).
-  - [ ] ` 48( \S+)?$` → quitar (Fabric: ` 48 item`, ` 48 color`, ` 48 non-item`, ` 48 items`; 71 ítems).
-- [ ] Asignar reglas por librería en `libraries.json`.
-- [ ] Regenerar todo con `python scripts/build.py pack` (no requiere Inkscape) y commitear los 30 XML: incluye los títulos limpios y el paso CRLF → LF pendiente de la etapa 1.
-- [ ] Confirmar con `python scripts/compare.py --ref v0-legacy`: solo cambian títulos y EOL, 0 SVG distintos.
-- [ ] Revisar manualmente 3–4 librerías en Draw.io (capturas para el PR).
+  - [x] `strip_azure_prefix`: `^\d+-icon-service-` → quitar (Azure, 511 ítems / 432 iconos únicos).
+  - [x] `dash_to_space`: `-` → espacio (Azure).
+  - [x] `strip_scalable`: ` scalable` y ` scalable (1)` → quitar (Dynamics 365, Power Platform; 47 ítems).
+  - [x] `split_camel_case`: `BusinessCentral` → `Business Central`, `AIBuilder` → `AI Builder`, `Dynamics365` → `Dynamics 365` (Dynamics 365, Power Platform). *Añadida: sin ella Draw.io no encuentra «Business Central».*
+  - [x] `fabric_suffix`: ` 48 item` → quitar; ` 48 color` / ` 48 non-item` / ` 48 items` → `(color)` / `(non-item)` / `(items)` (Fabric, 71 ítems). *Cambiada: quitar todo el sufijo dejaba títulos repetidos con iconos distintos (`data warehouse`, `event house`, `metric sets`).*
+  - [x] `strip_color_icon`: ` color icon` → quitar (Entra ID, 6 ítems). *Añadida.*
+  - [x] `title_overrides` en `libraries.json` para títulos que ninguna regla puede deducir: `00330-icon-service-Workspaces` → `Workspaces (Virtual Desktop)` (Microsoft tiene dos iconos distintos llamados «Workspaces»; el 00330 es el de Azure Virtual Desktop, junto a Host Pools y Application Group).
+- [x] Asignar reglas por librería en `libraries.json`.
+- [x] Regenerar todo con `python scripts/build.py pack` (no requiere Inkscape) y commitear los 30 XML: incluye los títulos limpios y el paso CRLF → LF pendiente de la etapa 1.
+- [x] Confirmar con `python scripts/compare.py --ref v0-legacy`: solo cambian títulos y EOL, 0 SVG distintos.
+- [ ] Revisar manualmente 3–4 librerías en Draw.io (capturas para el PR). *Pendiente del mantenedor: requiere la app.*
+- [ ] *Opcional:* títulos de Fabric en minúsculas (`kql database`, `power bi (color)`) y algunos de Programming (`Java script`, `Type script`, `Next js`, `Css`, `Mysql`). No afectan a la búsqueda (no distingue mayúsculas); corregirlos requiere nombres a mano vía `title_overrides` o renombrar los SVG.
 
 **Hecho cuando:** `validate.py` reporta 0 títulos crudos en las 30 librerías y buscar "Kubernetes" en Draw.io encuentra el icono.
+
+✅ **Completada** (salvo la revisión visual en Draw.io). Resultados:
+- `validate.py`: **OK** — 0 errores de formato, tamaño, SVG, títulos y duplicados; 27 raster en lista blanca.
+- `build.py pack --check`: 30 librerías al día.
+- `compare.py --ref v0-legacy`: 635 títulos cambiados, 717/717 SVG solo EOL, 0 SVG distintos, 0 cambios de w/h/aspect ni de número de ítems.
+- `validate.py` detecta además ` scalable (1)` y ` color icon`.
+- `normalize` probado con Inkscape 1.4.4 real (instalado con winget): Developing, Azure Blockchain y Power Platform → 21/21 SVG idénticos byte a byte a los commiteados. Velocidad: 1–4 s por icono.
 
 ---
 

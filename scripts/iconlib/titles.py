@@ -18,15 +18,29 @@ def _sub(pattern: str, repl: str, flags: int = 0) -> Rule:
     return lambda title: regex.sub(repl, title)
 
 
+def _fabric_suffix(title: str) -> str:
+    # El paquete de Fabric distingue variantes del mismo concepto ("data warehouse 48 color"
+    # y "data warehouse 48 item" son iconos distintos): se conserva la variante salvo "item".
+    m = re.match(r"^(.*) 48(?: (\S+))?$", title)
+    if not m:
+        return title
+    name, variant = m.groups()
+    return name if variant in (None, "item") else f"{name} ({variant})"
+
+
 RULES: dict[str, Rule] = {
     # "00028-icon-service-Batch-AI" -> "Batch-AI"
     "strip_azure_prefix": _sub(r"^\d+-icon-service-", ""),
     # "Batch-AI" -> "Batch AI"
     "dash_to_space": lambda title: title.replace("-", " "),
-    # "BusinessCentral scalable" -> "BusinessCentral"
-    "strip_scalable": _sub(r" scalable$", "", re.I),
-    # "add pipeline 48 non-item" / "apps 48 item" / "copilot 48 color" -> "add pipeline" / ...
-    "strip_size_suffix": _sub(r" 48( \S+)?$", ""),
+    # "BusinessCentral scalable" / "IntelligentOrderManagement scalable (1)" -> sin sufijo
+    "strip_scalable": _sub(r" scalable(?: \(\d+\))?$", "", re.I),
+    # "BusinessCentral" -> "Business Central", "AIBuilder" -> "AI Builder", "Dynamics365" -> "Dynamics 365"
+    "split_camel_case": _sub(r"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[A-Za-z])(?=\d)", " "),
+    # "lakehouse 48 item" -> "lakehouse", "data warehouse 48 color" -> "data warehouse (color)"
+    "fabric_suffix": _fabric_suffix,
+    # "Microsoft Entra ID color icon" -> "Microsoft Entra ID"
+    "strip_color_icon": _sub(r" color icon$", "", re.I),
 }
 
 

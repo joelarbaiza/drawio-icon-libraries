@@ -33,7 +33,8 @@ DATA_PREFIX = "data:image/svg+xml;base64,"
 # Patrones de título "crudo" (heredado del nombre de archivo) -> motivo.
 RAW_TITLE_PATTERNS = [
     (re.compile(r"^\d+-icon-service-"), "prefijo Azure '<n>-icon-service-'"),
-    (re.compile(r" scalable$", re.I), "sufijo ' scalable'"),
+    (re.compile(r" scalable(?: \(\d+\))?$", re.I), "sufijo ' scalable'"),
+    (re.compile(r" color icon$", re.I), "sufijo ' color icon'"),
     (re.compile(r" 48( \S+)?$"), "sufijo de tamaño ' 48 ...'"),
     (re.compile(r"\.svg$", re.I), "extensión '.svg'"),
 ]

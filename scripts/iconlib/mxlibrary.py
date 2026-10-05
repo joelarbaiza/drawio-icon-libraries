@@ -72,21 +72,31 @@ def list_svgs(folder: Path) -> list[Path]:
     return sorted(folder.glob("*.svg"), key=lambda p: p.name.lower())
 
 
-def build_item(svg_path: Path, title_rules: Iterable[str] = ()) -> dict:
+def build_item(svg_path: Path, title_rules: Iterable[str] = (), title: str | None = None) -> dict:
     data = canonical_svg_bytes(svg_path.read_bytes())
     w, h = intrinsic_size(data)
     return {
         "data": DATA_PREFIX + base64.b64encode(data).decode("ascii"),
         "w": int(round(w)),
         "h": int(round(h)),
-        "title": make_title(svg_path.stem, title_rules),
+        "title": title if title is not None else make_title(svg_path.stem, title_rules),
         "aspect": "fixed",
     }
 
 
-def build_items(folder: Path, title_rules: Iterable[str] = ()) -> list[dict]:
+def build_items(folder: Path, title_rules: Iterable[str] = (),
+                title_overrides: dict[str, str] | None = None) -> list[dict]:
+    """Ítems de la carpeta. ``title_overrides`` (nombre sin .svg -> título) gana a las reglas.
+
+    Lanza ValueError si un override apunta a un archivo que no existe (quedaría obsoleto en silencio).
+    """
     title_rules = list(title_rules)
-    return [build_item(p, title_rules) for p in list_svgs(folder)]
+    overrides = title_overrides or {}
+    svgs = list_svgs(folder)
+    unknown = sorted(set(overrides) - {p.stem for p in svgs})
+    if unknown:
+        raise ValueError(f"title_overrides sin SVG correspondiente en {folder}: {', '.join(unknown)}")
+    return [build_item(p, title_rules, overrides.get(p.stem)) for p in svgs]
 
 
 def dumps(items: list[dict]) -> str:

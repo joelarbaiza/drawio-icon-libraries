@@ -174,7 +174,12 @@ def do_pack(libs: list[Library], root: Path, args) -> int:
             errors += 1
             continue
 
-        items = mxlibrary.build_items(lib.normalized, lib.title_rules)
+        try:
+            items = mxlibrary.build_items(lib.normalized, lib.title_rules, lib.title_overrides)
+        except ValueError as e:
+            print(f"[{lib.name}] {e}", file=sys.stderr)
+            errors += 1
+            continue
         new = mxlibrary.to_bytes(items)
         target = rel(lib.output, root)
 
