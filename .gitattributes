@@ -1,0 +1,6 @@
+# Los SVG se guardan y se extraen siempre con LF, en cualquier SO.
+# build.py pack embebe sus bytes en base64: con CRLF el XML cambiaría según el sistema.
+*.svg text eol=lf
+
+# Librerías generadas: base64 ilegible en un diff. Se regeneran con scripts/build.py.
+libraries/**/*.xml text eol=lf -diff

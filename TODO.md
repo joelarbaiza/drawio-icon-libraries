@@ -12,7 +12,7 @@ Etapa 0 ──> Etapa 1 ──> Etapa 2 ──> Etapa 3 ──> Etapa 5 ──> 
 | Etapa | Qué | Esfuerzo | Bloqueada por | Estado |
 |---|---|---|---|---|
 | 0 | Validador + tag de seguridad | ½ día | — | ✅ |
-| 1 | `build.py` + manifiesto | 1–2 días | 0 | ⬜ |
+| 1 | `build.py` + manifiesto | 1–2 días | 0 | ✅ |
 | 2 | Títulos limpios | ½ día | 1 | ⬜ |
 | 3 | Borrar peso y notebooks | ½ día | 1 | ⬜ |
 | 4 | Iconos raster → vectorial | variable | — (paralela) | ⬜ |
@@ -39,6 +39,8 @@ Estado del repo en el commit `8110279`, medido con un script de validación:
 - ⚠️ 55 de 432 iconos Azure aparecen en 2+ librerías (probablemente intencional, las categorías de Microsoft se solapan).
 - ⚠️ Comentarios desactualizados en notebooks (p. ej. `Programming.ipynb` dice "Office 365" y "18x18" cuando usa `SVG_96`).
 - ⚠️ `README.es.md` solo se comparó por número de líneas (164 vs 167), no por contenido.
+- ❌ **Saltos de línea dependientes del SO**: el notebook escribía los SVG normalizados con `tree.write(ruta)` (modo texto → CRLF en Windows) y el XML embebía esos bytes CRLF, mientras git guarda los SVG con LF. Empaquetar en Linux daba XML distintos que en Windows. *(Detectado en la etapa 1.)*
+- ❌ El `.gitignore` de plantilla ignora `lib/`: un paquete `scripts/lib/` nunca se commitearía. *(Detectado en la etapa 1; el paquete se llama `scripts/iconlib/`.)*
 
 ---
 
@@ -67,32 +69,48 @@ Estado del repo en el commit `8110279`, medido con un script de validación:
 
 **Objetivo:** reemplazar los 31 notebooks por una herramienta de línea de comandos que cualquiera pueda ejecutar en cualquier sistema.
 
-- [ ] Crear `libraries.json` (manifiesto) con una entrada por librería:
+- [x] Crear `libraries.json` (manifiesto) con una entrada por librería:
   ```json
   {
     "name": "Azure Compute",
     "source": "svg/Azure/Azure Compute/SVG_18",
+    "normalized": "svg/Azure/Azure Compute/SVG_64",
     "output": "libraries/Azure/Azure Compute/Azure Compute.xml",
     "title_rules": ["strip_azure_prefix", "dash_to_space"]
   }
   ```
-- [ ] Crear `scripts/build.py` con subcomandos:
-  - [ ] `normalize --input DIR --output DIR [--padding 3]` → SVG a 64×64 centrados.
-  - [ ] `pack --input DIR --output FILE --title-rules ...` → genera el mxlibrary XML.
-  - [ ] `all` → recorre el manifiesto completo.
-  - [ ] Flags `--dry-run` y `--verbose`.
-- [ ] Mover la lógica común a `scripts/lib/`: `svg_normalize.py`, `mxlibrary.py`, `titles.py`.
-- [ ] Añadir `requirements.txt` y `pyproject.toml` mínimos.
-- [ ] Añadir `scripts/compare.py` (o un test) que compare el SVG decodificado de cada ítem entre dos XML.
+- [x] Crear `scripts/build.py` con subcomandos (`list`, `normalize`, `pack`, `all`; modo manifiesto con `-l NOMBRE` o modo suelto con `--input/--output`):
+  - [x] `normalize` → SVG a 64×64 centrados (Inkscape en `PATH`, `--inkscape` o `$INKSCAPE`).
+  - [x] `pack` → genera el mxlibrary XML (solo stdlib). `pack --check` no escribe y falla si algún XML no coincide con sus SVG (para CI).
+  - [x] `all` → `normalize` + `pack`.
+  - [x] Flags `--dry-run` y `--verbose`.
+- [x] Mover la lógica común a `scripts/iconlib/` (no `lib/`, que está en `.gitignore`): `manifest.py`, `svg_normalize.py`, `mxlibrary.py`, `titles.py`.
+- [x] Añadir `requirements.txt` y `pyproject.toml` mínimos (solo Pillow; `pack`/`validate`/`compare` usan stdlib).
+- [x] Añadir `scripts/compare.py`: compara ítem a ítem `libraries/` contra una referencia git (`--ref v0-legacy`) y clasifica cada SVG en idéntico / solo EOL / DISTINTO.
+- [x] Saltos de línea deterministas (adelantado de la etapa 3):
+  - [x] `pack` convierte CRLF → LF antes de codificar en base64.
+  - [x] `normalize` escribe en binario (siempre LF).
+  - [x] `.gitattributes`: `*.svg text eol=lf` y `libraries/**/*.xml text eol=lf -diff`.
 
 **Decisiones pendientes (del mantenedor):**
 
-- [ ] **Renderizador para medir el bbox.** Hoy se llama a Inkscape vía `wsl bash -lc`, lo que ata el proyecto a Windows+WSL.
-  - (a) Inkscape en `PATH` — funciona en Linux, macOS y Windows sin WSL. *Recomendado.*
-  - (b) `cairosvg` — coincide con lo que dice el README y quita Inkscape, pero rasteriza filtros/fuentes distinto: los bboxes pueden cambiar. **No probado**, no se garantiza resultado idéntico.
-- [ ] **Conservar o no las carpetas `SVG_64/`.** Son salida regenerable (el XML ya las embebe). Quitarlas reduce `svg/` a la mitad, pero se pierde la inspección directa de los iconos sin abrir Draw.io.
+- [x] **Renderizador para medir el bbox → Inkscape en `PATH`** (decidido 05-10-2026). Se elimina la dependencia de `wsl bash -lc`; funciona en Linux, macOS y Windows. Se descarta `cairosvg`.
+- [x] **Carpetas `SVG_64/` → se conservan** (decidido 05-10-2026), renombradas a un patrón uniforme en la etapa 3. Motivos:
+  - Separan el paso pesado (`normalize`, requiere Inkscape, ~1 s/icono) del ligero (`pack`, solo stdlib): cambiar un título o añadir una librería no exige Inkscape.
+  - Coste bajo: 717 archivos, ~6,5 MB.
+  - Los usuarios pueden descargar iconos sueltos de 64×64 desde GitHub.
+  - Los cambios de normalización se revisan como diff de SVG legible.
+  - Riesgo de desincronización `SVG_64/` ↔ XML: cubierto por la comprobación obligatoria de la etapa 5.
 
-**Hecho cuando:** `python scripts/build.py all` regenera las 30 librerías y el SVG decodificado de cada ítem es **byte a byte idéntico** al actual (los títulos pueden diferir).
+**Hecho cuando:** `python scripts/build.py pack` regenera las 30 librerías y el SVG decodificado de cada ítem es idéntico byte a byte al de `v0-legacy` **tras normalizar CRLF → LF**, sin cambios de título, tamaño ni número de ítems.
+
+✅ **Completada.** Resultados:
+- `compare.py --ref v0-legacy`: 717/717 SVG «solo EOL», 0 distintos, 0 títulos/atributos cambiados.
+- `build.py pack --check`: 30 librerías al día.
+- Geometría de `normalize`: sustituyendo la medición de Inkscape por el bbox recuperado del `transform` de cada SVG commiteado, 717/717 salidas idénticas byte a byte.
+- ⚠️ **Sin probar:** la medición real con Inkscape + Pillow (Inkscape no está instalado en la máquina de desarrollo). Re-normalizar con otra versión de Inkscape **nunca** será idéntico byte a byte (el raster cambia el bbox → cambian los decimales del `transform`): cualquier prueba futura de `normalize` debe usar tolerancia numérica.
+- Revisión adversarial (4 enfoques: fidelidad, multiplataforma, CLI, robustez; 2 verificadores por hallazgo): 26 hallazgos confirmados (~13 problemas distintos), todos corregidos y con prueba. Entre ellos: `normalize` fallaba siempre por un argumento ausente; `--dry-run` exigía Inkscape; normalizar un SVG ya normalizado lo deformaba sin avisar; SVG huérfanos en `SVG_64/` se seguían empaquetando (ahora `pack` falla y `normalize --prune` los elimina); `--inkscape` inválido se ignoraba; claves erróneas en `libraries.json` daban traceback.
+- Los XML regenerados (solo cambian CRLF → LF) **no se commitean en esta etapa**: se commitean una sola vez en la etapa 2 junto con los títulos limpios.
 
 ---
 
@@ -106,7 +124,8 @@ Estado del repo en el commit `8110279`, medido con un script de validación:
   - [ ] ` scalable$` → quitar (Dynamics 365, Power Platform; 46 ítems).
   - [ ] ` 48( \S+)?$` → quitar (Fabric: ` 48 item`, ` 48 color`, ` 48 non-item`, ` 48 items`; 71 ítems).
 - [ ] Asignar reglas por librería en `libraries.json`.
-- [ ] Regenerar todo con `build.py all`.
+- [ ] Regenerar todo con `python scripts/build.py pack` (no requiere Inkscape) y commitear los 30 XML: incluye los títulos limpios y el paso CRLF → LF pendiente de la etapa 1.
+- [ ] Confirmar con `python scripts/compare.py --ref v0-legacy`: solo cambian títulos y EOL, 0 SVG distintos.
 - [ ] Revisar manualmente 3–4 librerías en Draw.io (capturas para el PR).
 
 **Hecho cuando:** `validate.py` reporta 0 títulos crudos en las 30 librerías y buscar "Kubernetes" en Draw.io encuentra el icono.
@@ -120,8 +139,8 @@ Estado del repo en el commit `8110279`, medido con un script de validación:
 - [ ] Borrar `svg/Fabric/png/` y `svg/Fabric/svg all/` (3.010 archivos, 33 MB). Documentar en `docs/SOURCES.md` el enlace al paquete oficial de Microsoft del que salieron.
 - [ ] Borrar `scripts/Fabric/remove.ipynb`.
 - [ ] Borrar los 30 notebooks ya reemplazados por `build.py`. Si se quiere conservar uno como tutorial, dejar **un solo** `docs/notebooks/ejemplo.ipynb` sin salidas (`nbstripout`).
-- [ ] Unificar la estructura de `svg/` a un patrón único: `svg/<categoría>/source/` (original) y, si se decidió conservarla, `svg/<categoría>/64/`.
-- [ ] Añadir `.gitattributes` marcando `libraries/**/*.xml` como `-diff` (evita diffs gigantes de base64).
+- [ ] Unificar la estructura de `svg/` a un patrón único: `svg/<categoría>/source/` (originales, hoy `SVG_18` / `SVG_48` / `SVG_96`) y `svg/<categoría>/64/` (normalizados, commiteados).
+- [x] ~~Añadir `.gitattributes`~~ → hecho en la etapa 1.
 
 **Punto de decisión (no es un paso):**
 
@@ -159,7 +178,7 @@ Tareas:
 - [ ] `.github/workflows/validate.yml`: en cada PR y push a `main`, ejecutar `scripts/validate.py`.
 - [ ] `.github/workflows/release.yml`: al crear un tag `v*`, comprimir `libraries/` en `drawio-icon-libraries-<tag>.zip` y adjuntarlo a la GitHub Release.
 - [ ] Reemplazar en el README el botón de `download-directory.github.io` (servicio de terceros) por el enlace a la última release.
-- [ ] Opcional: job que regenere las librerías y falle si el resultado difiere del commit (garantiza que `libraries/` siempre sale de `svg/`).
+- [ ] **Obligatorio:** job en Ubuntu que ejecute `python scripts/build.py pack --check` y falle si algún XML difiere de lo que generan sus SVG de 64×64 (no requiere Inkscape). Depende de que `pack` convierta CRLF → LF y de `.gitattributes`: **no eliminar ninguno de los dos**, o el job dará falsos positivos según el SO.
 
 **Hecho cuando:** un PR con un título crudo o un `<image>` nuevo aparece en rojo; existe la release `v1.0.0` con el ZIP.
 
