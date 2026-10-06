@@ -5,6 +5,8 @@ las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+## [1.3.0] - 2026-10-06
+
 ### Añadido
 - **Instalador para Draw.io de escritorio (Windows)**: `install-drawio-desktop.bat` (doble clic) dentro del ZIP de
   la release, o `irm … | iex` en PowerShell. Instala las librerías en una carpeta fija y, al volver a ejecutarlo,
@@ -82,6 +84,7 @@ Primera versión con pipeline reproducible, CI y releases.
 - 31 notebooks de Jupyter (disponibles en el tag `v0-legacy`).
 - 3.010 PNG y SVG de Fabric sin uso (33 MB), también del historial de git.
 
+[1.3.0]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.3.0
 [1.2.0]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.2.0
 [1.1.1]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.1.1
 [1.1.0]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.1.0
