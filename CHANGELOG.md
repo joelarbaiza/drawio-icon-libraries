@@ -5,6 +5,8 @@ las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+## [1.1.1] - 2026-10-06
+
 ### Cambiado
 - CI: acciones de GitHub actualizadas a `actions/checkout@v7` y `actions/setup-python@v7`, que usan
   Node 24 (GitHub retira Node 20 de los runners).
@@ -59,5 +61,6 @@ Primera versión con pipeline reproducible, CI y releases.
 - 31 notebooks de Jupyter (disponibles en el tag `v0-legacy`).
 - 3.010 PNG y SVG de Fabric sin uso (33 MB), también del historial de git.
 
+[1.1.1]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.1.1
 [1.1.0]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.1.0
 [1.0.0]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.0.0
