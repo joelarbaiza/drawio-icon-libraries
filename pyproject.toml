@@ -4,7 +4,7 @@ version = "1.1.0"
 description = "Librerías de iconos para Draw.io / diagrams.net generadas a partir de SVG normalizados a 64x64"
 readme = "README.md"
 license = { file = "LICENSE" }
-requires-python = ">=3.9"
+requires-python = ">=3.14"
 # Pillow solo lo necesita `build.py normalize` (además de Inkscape 1.x: en el PATH,
 # en la ruta de instalación habitual, o indicado con --inkscape / $INKSCAPE).
 # `build.py pack`, `validate.py` y `compare.py` usan solo la biblioteca estándar.

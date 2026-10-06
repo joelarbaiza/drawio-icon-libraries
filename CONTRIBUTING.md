@@ -8,7 +8,7 @@ lee [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 | Para… | Necesitas |
 |---|---|
-| Cambiar títulos, regenerar los `.xml`, validar | **Python 3.9+** (solo biblioteca estándar) y Git |
+| Cambiar títulos, regenerar los `.xml`, validar | **Python 3.14+** (solo biblioteca estándar) y Git |
 | Añadir o cambiar iconos (normalizar SVG a 64×64) | Lo anterior + **[Inkscape 1.x](https://inkscape.org)** + **Pillow** (`pip install -r requirements.txt`) |
 
 `build.py` busca Inkscape en este orden: `--inkscape RUTA`, la variable `INKSCAPE`, el `PATH` y la ruta
@@ -182,7 +182,7 @@ Al publicar con el botón **Publicar versión** (ver más abajo), ese título se
 
 ## Antes de abrir el Pull Request
 
-La CI ([validate.yml](.github/workflows/validate.yml)) ejecuta esto en Linux con Python 3.9 y 3.x;
+La CI ([validate.yml](.github/workflows/validate.yml)) ejecuta esto en Linux con Python 3.14 y 3.x (la más reciente);
 pásalo en local para no llevarte sorpresas:
 
 ```bash

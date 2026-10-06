@@ -8,6 +8,8 @@ las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
 ### Cambiado
 - CI: acciones de GitHub actualizadas a `actions/checkout@v7` y `actions/setup-python@v7`, que usan
   Node 24 (GitHub retira Node 20 de los runners).
+- **Python mínimo: 3.14** (antes 3.9, sin soporte desde octubre de 2025 y sin versión para Ubuntu 26.04,
+  al que pasa `ubuntu-latest` el 19-10-2026). La CI prueba 3.14 y la versión estable más reciente.
 
 ## [1.1.0] - 2026-10-06
 

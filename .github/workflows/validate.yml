@@ -18,8 +18,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # 3.9 es la versión mínima declarada en pyproject.toml.
-        python: ["3.9", "3.x"]
+        # 3.14: versión mínima declarada en pyproject.toml (soporte hasta 2030, disponible en Ubuntu 26.04).
+        # 3.x: siempre la versión estable más reciente; prueba sola cada versión nueva de Python.
+        python: ["3.14", "3.x"]
     steps:
       - uses: actions/checkout@v7
 

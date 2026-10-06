@@ -94,8 +94,8 @@ Solo hace falta para añadir o cambiar iconos; para *usar* las librerías basta 
 
 | Para… | Necesitas |
 |---|---|
-| Regenerar las librerías `.xml`, cambiar títulos, validar | **Python 3.9+** (solo biblioteca estándar) |
-| Añadir o cambiar iconos (normalizar SVG a 64×64) | Python 3.9+, **[Inkscape 1.x](https://inkscape.org)** y **Pillow** (`pip install -r requirements.txt`) |
+| Regenerar las librerías `.xml`, cambiar títulos, validar | **Python 3.14+** (solo biblioteca estándar) |
+| Añadir o cambiar iconos (normalizar SVG a 64×64) | Python 3.14+, **[Inkscape 1.x](https://inkscape.org)** y **Pillow** (`pip install -r requirements.txt`) |
 
 Funciona en Windows, macOS y Linux; no hace falta WSL ni Jupyter.
 
