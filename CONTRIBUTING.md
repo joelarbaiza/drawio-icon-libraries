@@ -86,6 +86,27 @@ Para **quitar o renombrar** un icono, hazlo en `<source>` y ejecuta `build.py al
 `--prune` borra de `<64>` los SVG cuyo original ya no existe (sin él, `pack` falla para avisarte). Si el
 icono tenía un título manual, cambia también su clave en `title_overrides`.
 
+## Actualizar una librería con una versión nueva del proveedor
+
+Cuando el proveedor publica una versión nueva de su paquete de iconos (p. ej. Fabric):
+
+1. Descarga el paquete y localiza los SVG (Fabric: `package/dist/svg` dentro de `Icons.zip`).
+2. Sustituye **todo** el contenido de `<source>` por los SVG que use la librería, con el mismo criterio de
+   selección que la versión anterior (Fabric: los de 48 px, sin `filled` ni `regular`). Así los iconos que el
+   proveedor renombra o elimina también desaparecen de la librería.
+3. Normaliza, empaqueta y limpia los huérfanos de `<64>`:
+   ```bash
+   python scripts/build.py all -l "<librería>" --prune
+   python scripts/validate.py
+   ```
+4. Revisa en `git status` qué iconos son nuevos (`??`) y cuáles se eliminan (`D`); compáralo con el
+   changelog del proveedor y mira los nuevos en Draw.io.
+5. Actualiza la versión y la fecha del paquete en `docs/SOURCES.md`, los contadores de los README y
+   `CHANGELOG.md` (iconos nuevos, renombrados y eliminados).
+
+Los diagramas que ya usaban un icono eliminado no se rompen: Draw.io guarda una copia del icono dentro
+de cada diagrama.
+
 ## Añadir una librería nueva
 
 1. Crea `svg/<categoría>/<librería>/source/` (o `svg/<librería>/source/`) con los SVG originales.

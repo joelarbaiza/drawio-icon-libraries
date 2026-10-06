@@ -3,6 +3,19 @@
 Cambios relevantes del proyecto. Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/);
 las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
 
+## [Sin publicar]
+
+### Cambiado
+- **Microsoft Fabric** actualizada al paquete oficial `@fabric-msft/svg-icons` v6.1.0 (licencia MIT): 71 → 77 iconos.
+  - Nuevos: `custom streaming connector`, `data agent`, `data factory`, `graph intelligence (color)`,
+    `graph model instance`, `graph model instance queryset`, `mobile report`, `operations agent`, `planning`,
+    `purview (color)`, `rdl report`, `runtime lineage`, `user data function`, `variable library`.
+  - Renombrados por Microsoft: `ai skills` → `data agent`, `function` → `user data function`,
+    `variables` → `variable library`.
+  - Eliminados (ya no están en el paquete): `reflex` (ahora Activator, sin icono de 48 px en v6.1.0),
+    `digital twin builder`, `digital twin builder flow`, `event schema set`, `metric sets (items)`.
+  - Los otros 63 iconos se regeneran con el SVG nuevo; su aspecto no cambia.
+
 ## [1.0.0] - 2026-10-05
 
 Primera versión con pipeline reproducible, CI y releases.

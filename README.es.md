@@ -10,7 +10,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Validate](https://github.com/joelarbaiza/drawio-icon-libraries/actions/workflows/validate.yml/badge.svg)](https://github.com/joelarbaiza/drawio-icon-libraries/actions/workflows/validate.yml)
 
-Colección de **librerías de iconos para Draw.io / diagrams.net** en formato `.xml` (**mxlibrary**): **30 librerías y 717 iconos vectoriales** normalizados a **64×64**. Incluye un pipeline reproducible en Python para normalizar SVGs a 64×64 y **empaquetarlos** en librerías con `data:image/svg+xml;base64,...`.
+Colección de **librerías de iconos para Draw.io / diagrams.net** en formato `.xml` (**mxlibrary**): **30 librerías y 723 iconos vectoriales** normalizados a **64×64**. Incluye un pipeline reproducible en Python para normalizar SVGs a 64×64 y **empaquetarlos** en librerías con `data:image/svg+xml;base64,...`.
 
 > ⚠️ **Iconos y marcas**: los iconos y marcas pertenecen a sus respectivos titulares (p. ej., Microsoft). Este repo publica *librerías técnicas* y *scripts*; **no** transfiere derechos de uso. Consulta [docs/SOURCES.md](docs/SOURCES.md) para el origen y las condiciones de cada conjunto de iconos.
 
@@ -46,7 +46,7 @@ Archivos `.xml` listos para importar desde `/libraries`:
 | Azure Containers | 7 | Dynamics 365 Mixed Reality | 7 |
 | Azure Databases | 27 | Dynamics 365 sub app icons | 4 |
 | Azure DevOps | 14 | Microsoft Entra ID | 7 |
-| Azure General | 96 | Microsoft Fabric | 71 |
+| Azure General | 96 | Microsoft Fabric | 77 |
 | Azure Identity | 32 | Office 365 | 29 |
 | Azure Integration | 29 | Operating Systems | 3 |
 | Azure Intune | 18 | Power Platform | 9 |
