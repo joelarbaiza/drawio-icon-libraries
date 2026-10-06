@@ -10,7 +10,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Validate](https://github.com/joelarbaiza/drawio-icon-libraries/actions/workflows/validate.yml/badge.svg)](https://github.com/joelarbaiza/drawio-icon-libraries/actions/workflows/validate.yml)
 
-Collection of **icon libraries for Draw.io / diagrams.net** in `.xml` (**mxlibrary**) format: **30 libraries, 723 vector icons** normalized to **64×64**. Includes a reproducible Python pipeline to normalize SVGs to 64×64 and **package** them into libraries using `data:image/svg+xml;base64,...`.
+Collection of **icon libraries for Draw.io / diagrams.net** in `.xml` (**mxlibrary**) format: <!-- totals -->**30 libraries, 723 vector icons**<!-- /totals --> normalized to **64×64**. Includes a reproducible Python pipeline to normalize SVGs to 64×64 and **package** them into libraries using `data:image/svg+xml;base64,...`.
 
 > ⚠️ **Icons and trademarks**: icons and trademarks belong to their respective owners (e.g., Microsoft). This repo publishes *technical libraries* and *scripts*; it does **not** transfer usage rights. See [docs/SOURCES.md](docs/SOURCES.md) for the origin and terms of each icon set.
 
@@ -34,27 +34,44 @@ Collection of **icon libraries for Draw.io / diagrams.net** in `.xml` (**mxlibra
 
 ## 📚 Included libraries
 
-`.xml` files ready to import from `/libraries`:
+`.xml` files ready to use from `/libraries`. **Open ↗** loads a library straight into diagrams.net (web), no download needed:
 
-| Library | Icons | Library | Icons |
-|---|---:|---|---:|
-| Azure AI + Machine Learning | 33 | Azure Security | 15 |
-| Azure Analytics | 17 | Azure Storage | 19 |
-| Azure App Services | 8 | Azure Web | 19 |
-| Azure Blockchain | 6 | Developing | 6 |
-| Azure Compute | 40 | Dynamics 365 | 27 |
-| Azure Containers | 7 | Dynamics 365 Mixed Reality | 7 |
-| Azure Databases | 27 | Dynamics 365 sub app icons | 4 |
-| Azure DevOps | 14 | Microsoft Entra ID | 7 |
-| Azure General | 96 | Microsoft Fabric | 77 |
-| Azure Identity | 32 | Office 365 | 29 |
-| Azure Integration | 29 | Operating Systems | 3 |
-| Azure Intune | 18 | Power Platform | 9 |
-| Azure IoT | 29 | Programming | 43 |
-| Azure Management + Governance | 33 | | |
-| Azure Migration | 7 | | |
-| Azure Monitor | 11 | | |
-| Azure Networking | 51 | | |
+<!-- BEGIN GENERATED: libraries -->
+[![Open all 30 libraries in diagrams.net](https://img.shields.io/badge/diagrams.net-Open%20all%2030%20libraries-F08705?logo=diagramsdotnet&logoColor=white)](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20AI%20%2B%20Machine%20Learning%2FAzure%20AI%20%2B%20Machine%20Learning.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Analytics%2FAzure%20Analytics.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20App%20Services%2FAzure%20App%20Services.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Blockchain%2FAzure%20Blockchain.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Compute%2FAzure%20Compute.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Containers%2FAzure%20Containers.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Databases%2FAzure%20Databases.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20DevOps%2FAzure%20DevOps.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20General%2FAzure%20General.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Identity%2FAzure%20Identity.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Integration%2FAzure%20Integration.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Intune%2FAzure%20Intune.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20IoT%2FAzure%20IoT.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Management%20%2B%20Governance%2FAzure%20Management%20%2B%20Governance.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Migration%2FAzure%20Migration.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Monitor%2FAzure%20Monitor.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Networking%2FAzure%20Networking.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Security%2FAzure%20Security.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Storage%2FAzure%20Storage.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Web%2FAzure%20Web.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FDeveloping%2FDeveloping.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FDynamics%20365%2FDynamics%20365%20App%20Icons%2FDynamics%20365.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FDynamics%20365%2FDynamics%20365%20Mixed%20Reality%20Icons%2FDynamics%20365%20Mixed%20Reality.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FDynamics%20365%2FDynamics%20365%20Sub%20App%20Icons%2FDynamics%20365%20sub%20app%20icons.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FMicrosoft%20Entra%20ID%2FMicrosoft%20Entra%20ID.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FFabric%2FMicrosoft%20Fabric.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FOffice%20365%2FOffice%20365.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FOperating%20Systems%2FOperating%20Systems.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FPower%20Platform%2FPower%20Platform.xml;Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FProgramming%2FProgramming.xml)
+
+| Library | Icons | Open in diagrams.net |
+|---|---:|---|
+| Azure AI + Machine Learning | 33 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20AI%20%2B%20Machine%20Learning%2FAzure%20AI%20%2B%20Machine%20Learning.xml) |
+| Azure Analytics | 17 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Analytics%2FAzure%20Analytics.xml) |
+| Azure App Services | 8 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20App%20Services%2FAzure%20App%20Services.xml) |
+| Azure Blockchain | 6 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Blockchain%2FAzure%20Blockchain.xml) |
+| Azure Compute | 40 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Compute%2FAzure%20Compute.xml) |
+| Azure Containers | 7 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Containers%2FAzure%20Containers.xml) |
+| Azure Databases | 27 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Databases%2FAzure%20Databases.xml) |
+| Azure DevOps | 14 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20DevOps%2FAzure%20DevOps.xml) |
+| Azure General | 96 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20General%2FAzure%20General.xml) |
+| Azure Identity | 32 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Identity%2FAzure%20Identity.xml) |
+| Azure Integration | 29 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Integration%2FAzure%20Integration.xml) |
+| Azure Intune | 18 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Intune%2FAzure%20Intune.xml) |
+| Azure IoT | 29 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20IoT%2FAzure%20IoT.xml) |
+| Azure Management + Governance | 33 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Management%20%2B%20Governance%2FAzure%20Management%20%2B%20Governance.xml) |
+| Azure Migration | 7 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Migration%2FAzure%20Migration.xml) |
+| Azure Monitor | 11 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Monitor%2FAzure%20Monitor.xml) |
+| Azure Networking | 51 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Networking%2FAzure%20Networking.xml) |
+| Azure Security | 15 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Security%2FAzure%20Security.xml) |
+| Azure Storage | 19 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Storage%2FAzure%20Storage.xml) |
+| Azure Web | 19 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FAzure%2FAzure%20Web%2FAzure%20Web.xml) |
+| Developing | 6 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FDeveloping%2FDeveloping.xml) |
+| Dynamics 365 | 27 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FDynamics%20365%2FDynamics%20365%20App%20Icons%2FDynamics%20365.xml) |
+| Dynamics 365 Mixed Reality | 7 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FDynamics%20365%2FDynamics%20365%20Mixed%20Reality%20Icons%2FDynamics%20365%20Mixed%20Reality.xml) |
+| Dynamics 365 sub app icons | 4 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FDynamics%20365%2FDynamics%20365%20Sub%20App%20Icons%2FDynamics%20365%20sub%20app%20icons.xml) |
+| Microsoft Entra ID | 7 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FMicrosoft%20Entra%20ID%2FMicrosoft%20Entra%20ID.xml) |
+| Microsoft Fabric | 77 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FFabric%2FMicrosoft%20Fabric.xml) |
+| Office 365 | 29 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FOffice%20365%2FOffice%20365.xml) |
+| Operating Systems | 3 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FOperating%20Systems%2FOperating%20Systems.xml) |
+| Power Platform | 9 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FPower%20Platform%2FPower%20Platform.xml) |
+| Programming | 43 | [Open ↗](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fjoelarbaiza%2Fdrawio-icon-libraries%2Fmain%2Flibraries%2FProgramming%2FProgramming.xml) |
+<!-- END GENERATED: libraries -->
 
 Each entry uses `w:64`, `h:64`, `aspect:"fixed"`, a readable `title` (e.g. `Batch AI`, `Business Central`) and `data:image/svg+xml;base64,...`. All icons are vector (no embedded bitmaps), so they stay sharp at any zoom.
 
@@ -66,10 +83,17 @@ Each entry uses `w:64`, `h:64`, `aspect:"fixed"`, a readable `title` (e.g. `Batc
 
 ## 🚀 Quick usage in Draw.io/diagrams.net
 
-1. Open diagrams.net (or the Draw.io desktop app).
-2. Go to `File → Open Library from → File…`.
-3. Import any `.xml` from `/libraries`.
-4. Drag icons from the side panel onto the canvas. Use the search box to find icons by name.
+**Fastest — diagrams.net in the browser:** click **Open ↗** next to a library in the
+[table above](#included-libraries), or the **Open all** button. diagrams.net opens with the library already
+in the left panel: nothing to download or import. The links always load the latest version of the libraries.
+
+**Draw.io desktop app or offline:**
+
+1. [Download the ZIP](#download) and unzip it.
+2. In Draw.io, go to `File → Open Library from → File…`.
+3. Import any `.xml` from the `libraries` folder.
+
+Then drag icons from the side panel onto the canvas. Use the search box to find icons by name.
 
 ---
 

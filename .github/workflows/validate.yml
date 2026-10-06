@@ -38,3 +38,7 @@ jobs:
 
       - name: El ZIP de release se puede generar
         run: python scripts/package.py
+
+      # Tabla de librerías, enlaces a diagrams.net y totales de los README (scripts/readme.py).
+      - name: README al día con libraries.json
+        run: python scripts/readme.py --check
