@@ -10,7 +10,7 @@ las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
   habituales).
 - **Abrir librerías en diagrams.net con un clic**: en el README, cada librería tiene un enlace «Open ↗» y
   un botón abre las 30 a la vez. diagrams.net (web) se abre con las librerías ya en el panel lateral, sin
-  descargar ni importar nada.
+  descargar ni importar nada (Ctrl/⌘ + clic para abrirlo en otra pestaña: GitHub no permite forzarlo).
 - `scripts/readme.py`: genera la tabla de librerías, sus enlaces y los totales de los README desde
   `libraries.json`; la CI comprueba que estén al día.
 
