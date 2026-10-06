@@ -8,6 +8,7 @@ Contenido del ZIP (dentro de una carpeta drawio-icon-libraries/):
     libraries/**/*.xml   las librerías de Draw.io
     LICENSE              licencia de los scripts
     SOURCES.md           origen y licencia de los iconos (docs/SOURCES.md)
+    install-drawio-desktop.bat / .ps1   instalador para Draw.io de escritorio (Windows)
 
 El ZIP es reproducible en una misma plataforma (orden y fechas fijos): mismas
 entradas -> mismos bytes. Entre plataformas el contenido es el mismo, pero los
@@ -35,7 +36,14 @@ def files_to_pack(root: Path) -> list[tuple[Path, str]]:
     if not libs:
         raise FileNotFoundError(f"No hay librerías en {root / 'libraries'}")
     entries = [(p, f"{TOP}/{p.relative_to(root).as_posix()}") for p in libs]
-    for src, arc in ((root / "LICENSE", "LICENSE"), (root / "docs" / "SOURCES.md", "SOURCES.md")):
+    extras = (
+        (root / "LICENSE", "LICENSE"),
+        (root / "docs" / "SOURCES.md", "SOURCES.md"),
+        # Instalador para Draw.io de escritorio (Windows): doble clic en el .bat.
+        (root / "scripts" / "install-drawio-desktop.bat", "install-drawio-desktop.bat"),
+        (root / "scripts" / "install-drawio-desktop.ps1", "install-drawio-desktop.ps1"),
+    )
+    for src, arc in extras:
         if not src.is_file():
             raise FileNotFoundError(f"Falta {src}")
         entries.append((src, f"{TOP}/{arc}"))

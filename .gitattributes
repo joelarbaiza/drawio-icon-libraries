@@ -4,3 +4,6 @@
 
 # Librerías generadas: base64 ilegible en un diff. Se regeneran con scripts/build.py.
 libraries/**/*.xml text eol=lf -diff
+
+# cmd.exe necesita CRLF en los .bat.
+*.bat text eol=crlf

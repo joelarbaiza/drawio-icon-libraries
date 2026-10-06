@@ -42,3 +42,18 @@ jobs:
       # Tabla de librerías, enlaces a diagrams.net y totales de los README (scripts/readme.py).
       - name: README al día con libraries.json
         run: python scripts/readme.py --check
+
+      # Instalador de Windows: debe parsear en PowerShell, ir sin BOM (con BOM, «irm … | iex» falla en
+      # PowerShell 5.1) y el .bat en CRLF (cmd.exe). pwsh viene instalado en los runners de Ubuntu.
+      - name: Instalador de escritorio (sintaxis, sin BOM, .bat en CRLF)
+        shell: pwsh
+        run: |
+          $ps1 = Join-Path $PWD 'scripts/install-drawio-desktop.ps1'
+          $errors = $null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($ps1, [ref]$null, [ref]$errors)
+          if ($errors) { $errors | ForEach-Object { "::error::$($_.Extent.StartLineNumber): $($_.Message)" }; exit 1 }
+          $b = [IO.File]::ReadAllBytes($ps1)
+          if ($b.Length -ge 3 -and $b[0] -eq 0xEF -and $b[1] -eq 0xBB -and $b[2] -eq 0xBF) { '::error::install-drawio-desktop.ps1 lleva BOM'; exit 1 }
+          $bat = [IO.File]::ReadAllText((Join-Path $PWD 'scripts/install-drawio-desktop.bat'))
+          if (($bat -replace "`r`n", '') -match "`n") { '::error::install-drawio-desktop.bat no está en CRLF'; exit 1 }
+          'OK: instalador válido'

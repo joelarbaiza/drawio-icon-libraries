@@ -28,6 +28,7 @@ scripts/validate.py         Comprueba las librerías (formato, 64×64, títulos,
 scripts/compare.py          Compara las librerías icono a icono contra una versión de git
 scripts/package.py          Genera el ZIP de la release
 scripts/release.py          Calcula la versión siguiente y prepara CHANGELOG.md (lo usa «Publicar versión»)
+scripts/install-drawio-desktop.ps1/.bat  Instalador para Draw.io de escritorio (Windows); va dentro del ZIP
 scripts/iconlib/            Código común (manifiesto, títulos, empaquetado, normalización)
 docs/SOURCES.md             Origen y licencia de cada librería e icono
 docs/ARCHITECTURE.md        Cómo funciona el pipeline y por qué
