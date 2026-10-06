@@ -17,7 +17,7 @@ Etapa 0 ──> Etapa 1 ──> Etapa 2 ──> Etapa 3 ──> Etapa 5 ──> 
 | 3 | Borrar peso y notebooks | ½ día | 1 | ✅ |
 | 4 | Iconos raster → vectorial | variable | — (paralela) | ✅ |
 | 5 | CI + releases | ½ día | 0, 2 | ✅ (falta 1.ª release) |
-| 6 | Documentación | 1 día | 1, 3 | ⬜ |
+| 6 | Documentación | 1 día | 1, 3 | ✅ |
 
 Total aproximado: **4–5 días** de trabajo efectivo, más lo que tarde conseguir los SVG vectoriales de la etapa 4.
 
@@ -238,16 +238,18 @@ Tareas:
 
 **Objetivo:** que alguien sin contexto pueda instalar, generar y contribuir en menos de 15 minutos.
 
-- [ ] **README.md**
-  - [ ] Corregir requisitos (Inkscape o cairosvg según etapa 1, Pillow; quitar `lxml`).
-  - [ ] Sección "Uso rápido" con los comandos reales de `build.py`.
-  - [ ] Sección "Estructura del repo" con un árbol.
-  - [ ] Mantener el aviso de marcas registradas.
-- [ ] **CONTRIBUTING.md**: sacar del README el flujo Fork → Branch → PR y la checklist; explicar cómo añadir una librería nueva (= una entrada en `libraries.json` + carpeta en `svg/`).
-- [ ] **docs/SOURCES.md**: por cada librería, URL de origen, fecha de descarga, versión y licencia.
-- [ ] **docs/ARCHITECTURE.md** (corto): cómo funciona la normalización (bbox por render → escala → padding → viewBox 64×64) y el formato mxlibrary.
-- [ ] **README.es.md**: diff de contenido real contra README.md y sincronizar. Decidir si mantiene todo o solo lo esencial con enlace al inglés.
-- [ ] **CHANGELOG.md** empezando en `v1.0.0`.
-- [ ] Nota opcional en el README sobre los 55 iconos Azure presentes en 2+ librerías.
+- [x] **README.md**
+  - [x] Corregir requisitos: Python 3.9+ para todo; Inkscape 1.x + Pillow solo para `normalize`. Fuera `lxml`, `cairosvg`, Jupyter y WSL (título, insignia e introducción).
+  - [x] Sección «Build the libraries yourself» con los comandos reales de `build.py`.
+  - [x] Árbol de la estructura del repo.
+  - [x] Mantener el aviso de marcas registradas (ahora enlaza a `docs/SOURCES.md`).
+  - [x] Lista de librerías como tabla con el número de iconos (30 librerías, 717 iconos).
+  - [x] Índice con anclajes explícitos (`<a id>`): con emoji al inicio del título, el anclaje automático de GitHub no coincide con `#requirements`/`#download`, así que los enlaces del índice anterior probablemente fallaban en GitHub.
+- [x] **CONTRIBUTING.md** (en español, como el código y el CLI): requisitos, estructura, comandos, añadir iconos, añadir una librería, reglas y `title_overrides`, checklist del PR, ramas y commits, publicar versión, problemas frecuentes. El README conserva un resumen de 4 pasos y enlaza aquí.
+- [x] **docs/SOURCES.md**: las 5 URL oficiales verificadas (responden). Queda pendiente anotar versión y fecha de descarga de cada paquete.
+- [x] **docs/ARCHITECTURE.md**: flujo, algoritmo de normalización, formato mxlibrary, determinismo (CRLF/LF), por qué se commitean los SVG de 64×64, validaciones, CI y decisiones menores.
+- [x] **README.es.md**: misma estructura y contenido que README.md (antes ya era una traducción fiel; ahora se reescribió en paralelo).
+- [x] **CHANGELOG.md** con `v1.0.0` (sin fecha hasta publicar).
+- [x] Nota en el README sobre los iconos Azure presentes en 2+ librerías.
 
 **Hecho cuando:** un compañero sigue el README en una máquina limpia y regenera una librería sin preguntar nada.

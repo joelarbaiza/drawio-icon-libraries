@@ -7,7 +7,7 @@ Este repositorio publica librerías técnicas para Draw.io y los scripts que las
 Los paquetes de origen se identificaron a partir de las rutas de los notebooks originales
 (eliminados en la etapa 3; recuperables desde el tag `v0-legacy`).
 
-| Librería(s) | Paquete de origen | Carpeta en `svg/` | Página oficial (por verificar) |
+| Librería(s) | Paquete de origen | Carpeta en `svg/` | Página oficial (verificada 05-10-2026) |
 |---|---|---|---|
 | Azure (20 librerías) | `Azure_Public_Service_Icons_V22`, carpeta `Icons/<categoría>` | `svg/Azure/<librería>/source` (SVG de 18×18) | https://learn.microsoft.com/azure/architecture/icons/ |
 | Dynamics 365, Dynamics 365 Mixed Reality, Dynamics 365 sub app icons | `Dynamics_365_Icons_scalable_2024` | `svg/Dynamics 365/<librería>/source` | https://learn.microsoft.com/dynamics365/get-started/icons |
@@ -42,7 +42,8 @@ Fuentes evaluadas y **descartadas**:
 
 ## Pendiente
 
-- [ ] Verificar cada URL de la tabla principal y anotar versión y fecha de descarga.
+- [x] Verificar cada URL de la tabla principal (las 5 responden, 05-10-2026).
+- [ ] Anotar versión y fecha de descarga de cada paquete.
 - [ ] Documentar el origen y la licencia del resto de iconos de las recopilaciones manuales
       (Office 365, Operating Systems, Developing, Programming).
 - [ ] Si aparece una fuente oficial con licencia clara para los iconos de producto de Microsoft 365,
