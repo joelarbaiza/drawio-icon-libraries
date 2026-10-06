@@ -3,7 +3,7 @@
 Cambios relevantes del proyecto. Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/);
 las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
 
-## [1.0.0] - sin publicar
+## [1.0.0] - 2026-10-05
 
 Primera versión con pipeline reproducible, CI y releases.
 
@@ -32,3 +32,5 @@ Primera versión con pipeline reproducible, CI y releases.
 ### Eliminado
 - 31 notebooks de Jupyter (disponibles en el tag `v0-legacy`).
 - 3.010 PNG y SVG de Fabric sin uso (33 MB), también del historial de git.
+
+[1.0.0]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.0.0
