@@ -27,10 +27,11 @@ scripts/build.py            CLI: list · normalize · pack · all
 scripts/validate.py         Comprueba las librerías (formato, 64×64, títulos, raster, duplicados)
 scripts/compare.py          Compara las librerías icono a icono contra una versión de git
 scripts/package.py          Genera el ZIP de la release
+scripts/release.py          Calcula la versión siguiente y prepara CHANGELOG.md (lo usa «Publicar versión»)
 scripts/iconlib/            Código común (manifiesto, títulos, empaquetado, normalización)
 docs/SOURCES.md             Origen y licencia de cada librería e icono
 docs/ARCHITECTURE.md        Cómo funciona el pipeline y por qué
-.github/workflows/          CI (validate.yml) y publicación de versiones (release.yml)
+.github/workflows/          CI (validate.yml) y versiones (publish.yml → release.yml)
 ```
 
 > La carpeta exacta de cada librería está en `libraries.json` y la muestra `python scripts/build.py list -v`:
@@ -175,14 +176,32 @@ python scripts/package.py             # genera dist/drawio-icon-libraries.zip
 
 ## Publicar una versión (mantenedores)
 
-1. Actualiza [CHANGELOG.md](CHANGELOG.md) y haz merge a `main`.
-2. Crea y sube el tag desde `main` (la primera versión es `v1.0.0`; las siguientes, `v1.1.0`, `v1.0.1`…):
-   ```bash
-   git tag v1.0.0
-   git push origin v1.0.0
-   ```
-3. [release.yml](.github/workflows/release.yml) valida, genera `drawio-icon-libraries.zip` y publica la
-   release. El botón de descarga del README apunta siempre a la última.
+**Mientras trabajas:** en cada PR que cambie iconos o librerías, añade lo que cambia a la sección
+`## [Sin publicar]` de [CHANGELOG.md](CHANGELOG.md) (iconos nuevos, renombrados, eliminados…).
+
+**Para publicar** (cuando `main` tenga todo lo que quieres sacar):
+
+1. En GitHub: **Actions → Publicar versión → Run workflow**, con la rama `main`.
+2. Elige el tipo de versión:
+   - `minor` (1.0.0 → 1.1.0): iconos o librerías nuevas, actualizaciones del proveedor.
+   - `patch` (1.0.0 → 1.0.1): correcciones (un título, un icono mal normalizado).
+   - `major` (1.0.0 → 2.0.0): cambios incompatibles (renombrar o quitar librerías enteras).
+3. Listo. [publish.yml](.github/workflows/publish.yml) valida, calcula la versión a partir del último tag,
+   convierte `Sin publicar` en `[X.Y.Z] - fecha`, sube la versión en `pyproject.toml`, hace commit en
+   `main`, crea el tag y publica la release con el ZIP y las notas del CHANGELOG. El botón de descarga del
+   README apunta siempre a la última.
+
+Se niega a publicar si `Sin publicar` está vacía. Después, haz `git pull` en tu copia local: `main` tiene
+un commit nuevo (`chore(release): vX.Y.Z`).
+
+Para ver qué haría sin publicar nada: `python scripts/release.py next --bump minor` y
+`python scripts/release.py prepare --version X.Y.Z --dry-run`.
+
+Alternativa manual: subir un tag `vX.Y.Z` (`git tag v1.2.0` y `git push origin v1.2.0`) también publica la
+release, pero entonces el CHANGELOG y `pyproject.toml` hay que actualizarlos a mano antes.
+
+> Si `main` se protege para exigir PR, el workflow no podrá hacer push de su commit: habrá que permitir
+> a GitHub Actions saltarse la protección o volver al flujo manual.
 
 ## Problemas frecuentes
 

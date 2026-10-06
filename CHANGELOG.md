@@ -5,6 +5,11 @@ las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+### Añadido
+- Botón **Publicar versión** en GitHub Actions (`publish.yml` + `scripts/release.py`): calcula la versión,
+  actualiza el CHANGELOG y `pyproject.toml`, crea el tag y publica la release sin pasos manuales.
+- Las notas de cada release salen de su sección del CHANGELOG.
+
 ### Cambiado
 - **Microsoft Fabric** actualizada al paquete oficial `@fabric-msft/svg-icons` v6.1.0 (licencia MIT): 71 → 77 iconos.
   - Nuevos: `custom streaming connector`, `data agent`, `data factory`, `graph intelligence (color)`,
