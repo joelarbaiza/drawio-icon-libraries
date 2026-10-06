@@ -8,6 +8,7 @@
 [![Runs on WSL/Linux](https://img.shields.io/badge/WSL%20%2F%20Linux-supported-success)](#)
 [![Works with diagrams.net](https://img.shields.io/badge/Works%20with-diagrams.net%20%2F%20Draw.io-brightgreen)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Validate](https://github.com/joelarbaiza/drawio-icon-libraries/actions/workflows/validate.yml/badge.svg)](https://github.com/joelarbaiza/drawio-icon-libraries/actions/workflows/validate.yml)
 
 Collection of **icon libraries for Draw.io / diagrams.net** in `.xml` (**mxlibrary**) format, generated from SVGs normalized to **64×64**. Includes a reproducible pipeline (Jupyter or CLI) to convert SVGs to 64×64 and **package** them into libraries using `data:image/svg+xml;base64,...`.
 
@@ -98,9 +99,10 @@ Each entry uses `w:64`, `h:64`, `aspect:"fixed"`, `title` (from the file name) a
 
 ## ⬇️ Download
 
-[![Download only /libraries (ZIP)](https://img.shields.io/badge/Download--only--/libraries-ZIP-brightgreen)](https://download-directory.github.io/?url=https://github.com/joelarbaiza/drawio-icon-libraries/tree/main/libraries)
-  
-> Tip: **Ctrl/⌘ + click** or **middle-click** to open in a new tab ↗
+[![Download libraries (ZIP)](https://img.shields.io/badge/Download-libraries%20ZIP-brightgreen)](https://github.com/joelarbaiza/drawio-icon-libraries/releases/latest/download/drawio-icon-libraries.zip)
+[![Latest release](https://img.shields.io/github/v/release/joelarbaiza/drawio-icon-libraries)](https://github.com/joelarbaiza/drawio-icon-libraries/releases/latest)
+
+The ZIP contains every `.xml` library from `/libraries`, plus `LICENSE` and `SOURCES.md` (origin and license of the icons). It is built automatically for each release.
 
 
 ---

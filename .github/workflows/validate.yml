@@ -1,0 +1,39 @@
+# Comprueba en cada PR y en cada push a main que las librerías son válidas
+# y que coinciden con sus SVG de 64×64. No necesita Inkscape.
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate (Python ${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 3.9 es la versión mínima declarada en pyproject.toml.
+        python: ["3.9", "3.x"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Librerías válidas (formato, 64×64, títulos, sin raster, sin duplicados)
+        run: python scripts/validate.py --verbose
+
+      # Depende de que build.py pack convierta CRLF -> LF y de .gitattributes (eol=lf):
+      # sin ambos, este paso daría falsos positivos según el SO. No eliminarlos.
+      - name: XML sincronizados con sus SVG (build.py pack --check)
+        run: python scripts/build.py pack --check --verbose
+
+      - name: El ZIP de release se puede generar
+        run: python scripts/package.py

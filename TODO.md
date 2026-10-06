@@ -16,7 +16,7 @@ Etapa 0 ──> Etapa 1 ──> Etapa 2 ──> Etapa 3 ──> Etapa 5 ──> 
 | 2 | Títulos limpios | ½ día | 1 | ✅ |
 | 3 | Borrar peso y notebooks | ½ día | 1 | ✅ |
 | 4 | Iconos raster → vectorial | variable | — (paralela) | ✅ |
-| 5 | CI + releases | ½ día | 0, 2 | ⬜ |
+| 5 | CI + releases | ½ día | 0, 2 | ✅ (falta 1.ª release) |
 | 6 | Documentación | 1 día | 1, 3 | ⬜ |
 
 Total aproximado: **4–5 días** de trabajo efectivo, más lo que tarde conseguir los SVG vectoriales de la etapa 4.
@@ -218,12 +218,19 @@ Tareas:
 
 **Objetivo:** que los problemas de las etapas 2 y 4 no vuelvan, y que descargar sea fiable.
 
-- [ ] `.github/workflows/validate.yml`: en cada PR y push a `main`, ejecutar `scripts/validate.py`.
-- [ ] `.github/workflows/release.yml`: al crear un tag `v*`, comprimir `libraries/` en `drawio-icon-libraries-<tag>.zip` y adjuntarlo a la GitHub Release.
-- [ ] Reemplazar en el README el botón de `download-directory.github.io` (servicio de terceros) por el enlace a la última release.
-- [ ] **Obligatorio:** job en Ubuntu que ejecute `python scripts/build.py pack --check` y falle si algún XML difiere de lo que generan sus SVG de 64×64 (no requiere Inkscape). Depende de que `pack` convierta CRLF → LF y de `.gitattributes`: **no eliminar ninguno de los dos**, o el job dará falsos positivos según el SO.
+- [x] `.github/workflows/validate.yml`: en cada PR, push a `main` y manual; Ubuntu con Python 3.9 (mínimo declarado) y 3.x. Ejecuta `validate.py`, `build.py pack --check` y `package.py`.
+- [x] `.github/workflows/release.yml`: al subir un tag `v*`, valida, genera el ZIP y publica la GitHub Release con `gh release create --generate-notes`. *Cambio respecto al plan:* el ZIP se llama siempre `drawio-icon-libraries.zip` (no `…-<tag>.zip`) para que `releases/latest/download/drawio-icon-libraries.zip` sea un enlace fijo a la última versión.
+- [x] `scripts/package.py`: ZIP con `libraries/`, `LICENSE` y `SOURCES.md`; reproducible en una misma plataforma (orden y fechas fijos).
+- [x] Reemplazar en los dos README el botón de `download-directory.github.io` por la descarga directa de la última release; añadidas insignias de versión y de estado de la CI.
+- [x] **Obligatorio:** job en Ubuntu que ejecute `python scripts/build.py pack --check` y falle si algún XML difiere de lo que generan sus SVG de 64×64 (no requiere Inkscape). Depende de que `pack` convierta CRLF → LF y de `.gitattributes`: **no eliminar ninguno de los dos**, o el job dará falsos positivos según el SO.
+- [ ] **Pendiente del mantenedor:** subir la rama, abrir el PR a `main`, comprobar que la CI pasa, hacer merge y crear el tag: `git tag v1.0.0 && git push origin v1.0.0`. Hasta que exista la primera release, el botón de descarga del README devuelve 404.
 
 **Hecho cuando:** un PR con un título crudo o un `<image>` nuevo aparece en rojo; existe la release `v1.0.0` con el ZIP.
+
+✅ **Completada en local** (falta la ejecución real en GitHub). Verificado:
+- `actionlint` 1.7.12: sin errores en los dos workflows.
+- Simulación de la CI en un clon limpio en Linux (WSL): caso limpio OK; **en rojo** con (1) un icono nuevo con título crudo, (2) un icono con `<image>` raster y (3) un XML editado a mano sin tocar sus SVG.
+- `package.py`: 32 archivos, ~840 KB, mismos bytes en dos ejecuciones seguidas.
 
 ---
 
