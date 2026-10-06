@@ -1,0 +1,42 @@
+# Al subir un tag v* (p. ej. v1.0.0), valida las librerías y publica una
+# GitHub Release con el ZIP de libraries/ adjunto.
+#
+# El ZIP se adjunta siempre con el mismo nombre, así este enlace apunta
+# a la última versión sin tocar el README:
+#   https://github.com/<owner>/<repo>/releases/latest/download/drawio-icon-libraries.zip
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Validar antes de publicar
+        run: |
+          python scripts/validate.py
+          python scripts/build.py pack --check
+
+      - name: Generar ZIP
+        run: python scripts/package.py
+
+      - name: Publicar release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "$GITHUB_REF_NAME"
+          dist/drawio-icon-libraries.zip
+          --title "$GITHUB_REF_NAME"
+          --generate-notes
+          --verify-tag
