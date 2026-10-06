@@ -1,6 +1,6 @@
 [project]
 name = "drawio-icon-libraries"
-version = "1.1.1"
+version = "1.2.0"
 description = "Librerías de iconos para Draw.io / diagrams.net generadas a partir de SVG normalizados a 64x64"
 readme = "README.md"
 license = { file = "LICENSE" }

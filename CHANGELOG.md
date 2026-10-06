@@ -5,6 +5,8 @@ las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+## [1.2.0] - 2026-10-06
+
 ### Añadido
 - `CLAUDE.md`: guía para trabajar en el repo con Claude Code (comandos, reglas, trampas conocidas y tareas
   habituales).
@@ -74,6 +76,7 @@ Primera versión con pipeline reproducible, CI y releases.
 - 31 notebooks de Jupyter (disponibles en el tag `v0-legacy`).
 - 3.010 PNG y SVG de Fabric sin uso (33 MB), también del historial de git.
 
+[1.2.0]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.2.0
 [1.1.1]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.1.1
 [1.1.0]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.1.0
 [1.0.0]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.0.0
