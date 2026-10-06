@@ -37,6 +37,7 @@ python scripts/build.py all -l "<librería>" --prune   # además borra de 64/ lo
 python scripts/validate.py [-v]                  # formato, 64×64, títulos, raster, duplicados
 python scripts/compare.py --ref origin/main -v   # diferencias icono a icono contra otra versión
 python scripts/package.py                        # ZIP de la release en dist/ (ignorado por git)
+python scripts/readme.py [--check]               # regenera tabla, enlaces a diagrams.net y totales de los README
 python scripts/release.py next --bump minor      # versión que calcularía el botón «Publicar versión»
 ```
 
@@ -46,7 +47,7 @@ para títulos o el manifiesto basta `pack`.
 **Verificación antes de dar una tarea por terminada** (es lo que ejecuta la CI):
 
 ```bash
-python scripts/validate.py && python scripts/build.py pack --check
+python scripts/validate.py && python scripts/build.py pack --check && python scripts/readme.py --check
 ```
 
 ## Reglas (no las rompas)
@@ -66,8 +67,9 @@ python scripts/validate.py && python scripts/build.py pack --check
    Solo hay una sección `Sin publicar`; no edites versiones ya publicadas.
 7. **Origen y licencia de cada icono nuevo en `docs/SOURCES.md`.** Si el origen no tiene licencia clara,
    pregunta antes de usarlo. Los iconos son marcas de terceros: no los modifiques más allá de normalizarlos.
-8. **Al añadir o quitar iconos, actualiza los contadores**: tabla y total de la introducción en `README.md`
-   y `README.es.md`.
+8. **Al añadir o quitar iconos o librerías, ejecuta `python scripts/readme.py`.** Genera en los dos README
+   la tabla de librerías (iconos y enlace «Open ↗» a diagrams.net) y los totales de la introducción. Nunca
+   edites a mano lo que hay entre `<!-- BEGIN GENERATED: libraries -->` / `<!-- totals -->` y sus cierres.
 9. **No versiones a mano.** No edites la versión de `pyproject.toml`, no conviertas `Sin publicar` en una
    versión y no crees tags: lo hace el workflow «Publicar versión» desde `main`.
 10. **No hagas `git push`, no crees PR ni lances workflows sin que el usuario lo pida.**
@@ -91,6 +93,9 @@ patrón en `RAW_TITLE_PATTERNS` de `scripts/validate.py`. Los títulos deben ser
   `transform` de todos los iconos: si solo querías añadir iconos, `git restore` los `64/` modificados y `pack`.
 - **`compare.py` empareja por posición**: si cambia el número de iconos, los posteriores salen como
   cambiados. Sirve para comprobar que *no* cambia nada inesperado.
+- **Enlaces a diagrams.net** (`readme.py`): parámetro `clibs` con la URL raw de cada `.xml` en `main`,
+  codificada **una sola vez**. Con doble codificación cargan igual, pero diagrams.net muestra el título
+  como `Microsoft%20Fabric`. Solo funcionan en la versión web; la app de escritorio usa el ZIP.
 - **`scripts/iconlib/`** se llama así porque `.gitignore` (plantilla de Python) ignora `lib/`.
 - **`TODO.md`** es un archivo local del mantenedor, ignorado por git: no lo uses como documentación.
 - **Dependencias**: solo biblioteca estándar, salvo Pillow (importado de forma diferida, solo en
@@ -101,10 +106,10 @@ patrón en `RAW_TITLE_PATTERNS` de `scripts/validate.py`. Los títulos deben ser
 
 | Tarea | Pasos |
 |---|---|
-| Añadir iconos a una librería | SVG a su `source/` → `build.py all -l "<lib>"` → `validate.py` → README (contadores), `SOURCES.md`, CHANGELOG |
+| Añadir iconos a una librería | SVG a su `source/` → `build.py all -l "<lib>"` → `validate.py` → `readme.py`, `SOURCES.md`, CHANGELOG |
 | Quitar/renombrar iconos | cambia `source/` → `build.py all -l "<lib>" --prune` → actualiza `title_overrides` si aplica → CHANGELOG |
-| Actualizar una librería con una versión nueva del proveedor | sustituye **todo** `source/` con el mismo criterio de selección → `all --prune` → revisa `git status` contra el changelog del proveedor → `SOURCES.md` (versión y fecha), README, CHANGELOG |
-| Librería nueva | carpeta `source/` + entrada en `libraries.json` → `all -l` → README (tabla y total), `SOURCES.md`, CHANGELOG |
+| Actualizar una librería con una versión nueva del proveedor | sustituye **todo** `source/` con el mismo criterio de selección → `all --prune` → revisa `git status` contra el changelog del proveedor → `SOURCES.md` (versión y fecha), `readme.py`, CHANGELOG |
+| Librería nueva | carpeta `source/` + entrada en `libraries.json` → `all -l` → `readme.py`, `SOURCES.md`, CHANGELOG |
 | Cambiar un título | `title_rules`/`title_overrides` en `libraries.json` → `build.py pack` → CHANGELOG |
 | Cambiar un script | mantén Python 3.14+ y solo stdlib → `validate.py`, `pack --check` y prueba el comando tocado |
 
@@ -112,7 +117,7 @@ Paso a paso completo de cada una en [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## CI y versiones
 
-- `validate.yml`: en cada PR y push a `main`, Ubuntu, Python 3.14 y 3.x → `validate.py`, `pack --check`, `package.py`.
+- `validate.yml`: en cada PR y push a `main`, Ubuntu, Python 3.14 y 3.x → `validate.py`, `pack --check`, `package.py`, `readme.py --check`.
 - `publish.yml` («Publicar versión», manual desde `main`, patch/minor/major): calcula la versión con
   `scripts/release.py`, convierte `Sin publicar` en `[X.Y.Z] - fecha`, sube la versión en `pyproject.toml`,
   hace commit, tag y llama a `release.yml`. Se niega si `Sin publicar` está vacía.

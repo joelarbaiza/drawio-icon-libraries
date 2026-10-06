@@ -77,8 +77,8 @@ detrás aparecerán como cambiados; úsalo para comprobar que *no* cambia nada i
    ```
    Abre el `.xml` en Draw.io (`Archivo → Abrir biblioteca`) y mira que los iconos se vean bien.
 4. Commitea **los tres**: `<source>`, `<64>` y `libraries/<…>.xml`.
-5. Anota el origen y la licencia en [docs/SOURCES.md](docs/SOURCES.md) y actualiza el número de iconos
-   en la tabla y en la introducción de `README.md` y `README.es.md`.
+5. Anota el origen y la licencia en [docs/SOURCES.md](docs/SOURCES.md) y regenera la tabla de los README
+   (número de iconos, totales y enlaces a diagrams.net): `python scripts/readme.py`.
 6. Añade una línea al CHANGELOG (ver [Anotar los cambios en el CHANGELOG](#anotar-los-cambios-en-el-changelog)).
 
 **Solo SVG vectoriales.** Un SVG que embeba imágenes (`<image>` con PNG/JPG) hace fallar `validate.py`:
@@ -104,7 +104,7 @@ Cuando el proveedor publica una versión nueva de su paquete de iconos (p. ej. F
    ```
 4. Revisa en `git status` qué iconos son nuevos (`??`) y cuáles se eliminan (`D`); compáralo con el
    changelog del proveedor y mira los nuevos en Draw.io.
-5. Actualiza la versión y la fecha del paquete en `docs/SOURCES.md`, los contadores de los README y
+5. Actualiza la versión y la fecha del paquete en `docs/SOURCES.md`, regenera los README (`python scripts/readme.py`) y
    el CHANGELOG con los iconos nuevos, renombrados y eliminados (ver
    [Anotar los cambios en el CHANGELOG](#anotar-los-cambios-en-el-changelog)).
 
@@ -125,8 +125,8 @@ de cada diagrama.
    }
    ```
 3. `python scripts/build.py all -l "Mi Librería"` y `python scripts/validate.py`.
-4. Añádela a la tabla de `README.md` y `README.es.md` (y actualiza los totales de la introducción), y su
-   origen a `docs/SOURCES.md`.
+4. Regenera los README (`python scripts/readme.py`): la librería aparece sola en la tabla, con su enlace a
+   diagrams.net, y se actualizan los totales. Añade su origen a `docs/SOURCES.md`.
 5. Añade una línea al CHANGELOG, en `### Añadido` de `## [Sin publicar]`.
 6. Commitea `libraries.json`, las dos carpetas de SVG y el `.xml` nuevo.
 
@@ -190,6 +190,7 @@ pásalo en local para no llevarte sorpresas:
 python scripts/validate.py            # OK
 python scripts/build.py pack --check  # OK: N librería(s) al día
 python scripts/package.py             # genera dist/drawio-icon-libraries.zip
+python scripts/readme.py --check      # OK: README al día (N librerías, M iconos)
 ```
 
 - [ ] SVG originales en `<source>` y normalizados en `<64>`.

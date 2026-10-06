@@ -20,6 +20,7 @@ Todo lo gobierna [libraries.json](../libraries.json): una entrada por librería 
 | validar | `scripts/validate.py` | ninguna | no |
 | comparar | `scripts/compare.py` | git | no |
 | empaquetar | `scripts/package.py` | ninguna | no |
+| README | `scripts/readme.py` | ninguna | no |
 
 ## Normalización a 64×64
 
@@ -96,12 +97,18 @@ copiados a una carpeta equivocada, que si no quedarían fuera sin aviso).
 | Raster | `validate.py` | un SVG embebe `<image>` y no está en `RASTER_ALLOWLIST` (vacía) |
 | Sincronía | `build.py pack --check` | un `.xml` no coincide con lo que generan sus SVG de 64×64 |
 | Carpetas | `build.py pack` | hay SVG huérfanos entre `source/` y `64/`, o SVG fuera de las carpetas del manifiesto |
+| README | `readme.py --check` | la tabla, los enlaces a diagrams.net o los totales no coinciden con `libraries.json` |
 | Regresiones | `compare.py --ref <ref>` | (manual) un icono cambia cuando no debería |
 
 ## CI y versiones
 
 - [validate.yml](../.github/workflows/validate.yml): en cada PR y push a `main`, en Ubuntu con
-  Python 3.14 (mínimo declarado) y 3.x (siempre la más reciente): `validate.py`, `pack --check` y `package.py`.
+  Python 3.14 (mínimo declarado) y 3.x (siempre la más reciente): `validate.py`, `pack --check`,
+  `package.py` y `readme.py --check`.
+- Enlaces «Open ↗» del README: `https://app.diagrams.net/?splash=0&clibs=U<url>` (parámetro oficial
+  [`clibs`](https://www.drawio.com/doc/faq/supported-url-parameters)), con `<url>` = el `.xml` en
+  `raw.githubusercontent.com/…/main/…` (permite CORS), codificada una sola vez para que diagrams.net use
+  el nombre del archivo, ya decodificado, como título de la librería. Varias librerías se separan con `;`.
 - [publish.yml](../.github/workflows/publish.yml) («Publicar versión», manual): calcula la versión
   siguiente desde el último tag, prepara `CHANGELOG.md` y `pyproject.toml` con `scripts/release.py`, hace
   commit en `main`, sube el tag (`git push --atomic`, ambos o ninguno) y llama a `release.yml`.
