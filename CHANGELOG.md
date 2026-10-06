@@ -5,6 +5,14 @@ las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+### Añadido
+- `CLAUDE.md`: guía para trabajar en el repo con Claude Code (comandos, reglas, trampas conocidas y tareas
+  habituales).
+
+### Cambiado
+- README: la insignia de versión pasa a llamarse «latest version» / «última versión» y se explica qué hace
+  cada botón de la sección de descarga (descargar el ZIP o ver las notas de la versión).
+
 ## [1.1.1] - 2026-10-06
 
 ### Cambiado
