@@ -102,9 +102,14 @@ copiados a una carpeta equivocada, que si no quedarían fuera sin aviso).
 
 - [validate.yml](../.github/workflows/validate.yml): en cada PR y push a `main`, en Ubuntu con
   Python 3.9 (mínimo declarado) y 3.x: `validate.py`, `pack --check` y `package.py`.
-- [release.yml](../.github/workflows/release.yml): con un tag `v*`, valida, genera el ZIP y publica la
-  release. El ZIP tiene siempre el mismo nombre, así que
-  `releases/latest/download/drawio-icon-libraries.zip` apunta siempre a la última versión.
+- [publish.yml](../.github/workflows/publish.yml) («Publicar versión», manual): calcula la versión
+  siguiente desde el último tag, prepara `CHANGELOG.md` y `pyproject.toml` con `scripts/release.py`, hace
+  commit en `main`, sube el tag (`git push --atomic`, ambos o ninguno) y llama a `release.yml`.
+  Lo llama directamente porque un tag subido con el token de Actions no dispara otros workflows.
+- [release.yml](../.github/workflows/release.yml): llamado por `publish.yml` o al subir a mano un tag
+  `v*`. Valida, genera el ZIP y publica la release con las notas de esa versión del CHANGELOG. El ZIP
+  tiene siempre el mismo nombre, así que `releases/latest/download/drawio-icon-libraries.zip` apunta
+  siempre a la última versión.
 
 ## Decisiones menores
 
