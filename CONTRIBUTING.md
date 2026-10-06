@@ -78,6 +78,7 @@ detrás aparecerán como cambiados; úsalo para comprobar que *no* cambia nada i
 4. Commitea **los tres**: `<source>`, `<64>` y `libraries/<…>.xml`.
 5. Anota el origen y la licencia en [docs/SOURCES.md](docs/SOURCES.md) y actualiza el número de iconos
    en la tabla y en la introducción de `README.md` y `README.es.md`.
+6. Añade una línea al CHANGELOG (ver [Anotar los cambios en el CHANGELOG](#anotar-los-cambios-en-el-changelog)).
 
 **Solo SVG vectoriales.** Un SVG que embeba imágenes (`<image>` con PNG/JPG) hace fallar `validate.py`:
 busca una versión vectorial. Si no existe, justifícalo en `docs/SOURCES.md` y añade el icono a
@@ -103,7 +104,8 @@ Cuando el proveedor publica una versión nueva de su paquete de iconos (p. ej. F
 4. Revisa en `git status` qué iconos son nuevos (`??`) y cuáles se eliminan (`D`); compáralo con el
    changelog del proveedor y mira los nuevos en Draw.io.
 5. Actualiza la versión y la fecha del paquete en `docs/SOURCES.md`, los contadores de los README y
-   `CHANGELOG.md` (iconos nuevos, renombrados y eliminados).
+   el CHANGELOG con los iconos nuevos, renombrados y eliminados (ver
+   [Anotar los cambios en el CHANGELOG](#anotar-los-cambios-en-el-changelog)).
 
 Los diagramas que ya usaban un icono eliminado no se rompen: Draw.io guarda una copia del icono dentro
 de cada diagrama.
@@ -124,7 +126,8 @@ de cada diagrama.
 3. `python scripts/build.py all -l "Mi Librería"` y `python scripts/validate.py`.
 4. Añádela a la tabla de `README.md` y `README.es.md` (y actualiza los totales de la introducción), y su
    origen a `docs/SOURCES.md`.
-5. Commitea `libraries.json`, las dos carpetas de SVG y el `.xml` nuevo.
+5. Añade una línea al CHANGELOG, en `### Añadido` de `## [Sin publicar]`.
+6. Commitea `libraries.json`, las dos carpetas de SVG y el `.xml` nuevo.
 
 ## Títulos de los iconos
 
@@ -151,6 +154,32 @@ Cambiar títulos **no requiere Inkscape**: edita `libraries.json` y ejecuta `pyt
 Una regla nueva se añade en `scripts/iconlib/titles.py`; si deja algún patrón «crudo» nuevo, añádelo
 también a `RAW_TITLE_PATTERNS` en `scripts/validate.py`.
 
+## Anotar los cambios en el CHANGELOG
+
+Cada PR que cambie iconos, librerías o scripts añade una línea en [CHANGELOG.md](CHANGELOG.md), en la
+sección `## [Sin publicar]` (los cambios que ya están en `main` pero aún no tienen versión). Esas líneas
+son las notas que aparecerán en la próxima release.
+
+- Solo hay **una** sección `## [Sin publicar]`, siempre arriba del todo: no crees otra.
+- Escribe debajo del subtítulo que corresponda; si aún no existe dentro de `Sin publicar`, créalo, en este
+  orden: `### Añadido` (iconos o librerías nuevas, funciones nuevas), `### Cambiado` (actualizaciones,
+  títulos, rediseños), `### Eliminado`.
+- No edites las versiones ya publicadas (`## [1.0.0] - …`).
+- Una línea por cambio, pensada para quien usa las librerías: qué librería y qué iconos.
+
+Ejemplo, después de añadir tres iconos a Programming:
+
+```markdown
+## [Sin publicar]
+
+### Añadido
+- Programming: iconos de `Zig`, `Elixir` y `Haskell`.
+```
+
+Al publicar con el botón **Publicar versión** (ver más abajo), ese título se convierte en
+`## [1.1.0] - 2026-10-06`, se añade su enlace al final del archivo y arriba queda una sección
+`## [Sin publicar]` nueva y vacía para lo siguiente. No hace falta tocar nada más.
+
 ## Antes de abrir el Pull Request
 
 La CI ([validate.yml](.github/workflows/validate.yml)) ejecuta esto en Linux con Python 3.9 y 3.x;
@@ -167,6 +196,7 @@ python scripts/package.py             # genera dist/drawio-icon-libraries.zip
 - [ ] Títulos claros y sin duplicados dentro de la librería.
 - [ ] Iconos revisados en Draw.io (adjunta una captura al PR si cambian iconos).
 - [ ] Origen y licencia en `docs/SOURCES.md`.
+- [ ] Línea en `## [Sin publicar]` de `CHANGELOG.md`.
 
 ## Ramas y commits
 
@@ -176,8 +206,8 @@ python scripts/package.py             # genera dist/drawio-icon-libraries.zip
 
 ## Publicar una versión (mantenedores)
 
-**Mientras trabajas:** en cada PR que cambie iconos o librerías, añade lo que cambia a la sección
-`## [Sin publicar]` de [CHANGELOG.md](CHANGELOG.md) (iconos nuevos, renombrados, eliminados…).
+**Mientras trabajas:** cada PR deja su línea en `## [Sin publicar]` del CHANGELOG
+(ver [Anotar los cambios en el CHANGELOG](#anotar-los-cambios-en-el-changelog)).
 
 **Para publicar** (cuando `main` tenga todo lo que quieres sacar):
 
