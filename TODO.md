@@ -253,3 +253,9 @@ Tareas:
 - [x] Nota en el README sobre los iconos Azure presentes en 2+ librerías.
 
 **Hecho cuando:** un compañero sigue el README en una máquina limpia y regenera una librería sin preguntar nada.
+
+✅ **Completada.** Verificado con un agente que hizo de desarrollador nuevo sobre un clon limpio, siguiendo solo la documentación: sin bloqueos; regeneró librerías, añadió un icono y una librería nueva, y usó `--prune`. Detectó 18 problemas, todos corregidos en `a7cc56d`. El más grave: la ruta `svg/<librería>/source/` de los docs no existía para Azure, Fabric ni Dynamics, y un icono copiado ahí se perdía con todas las comprobaciones en verde. Ahora `pack` falla en ese caso y `build.py list -v` muestra la carpeta correcta.
+
+Pendiente fuera de esta etapa:
+- [ ] Anotar versión y fecha de descarga de cada paquete en `docs/SOURCES.md`.
+- [ ] Subir el tag `v0-legacy` si se quiere que los enlaces de CHANGELOG/SOURCES a los notebooks funcionen en GitHub: `git push origin v0-legacy`.
