@@ -5,6 +5,10 @@ las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+### Añadido
+- `CLAUDE.md`: guía para trabajar en el repo con Claude Code (comandos, reglas, trampas conocidas y tareas
+  habituales).
+
 ## [1.1.1] - 2026-10-06
 
 ### Cambiado

@@ -31,6 +31,7 @@ scripts/release.py          Calcula la versión siguiente y prepara CHANGELOG.md
 scripts/iconlib/            Código común (manifiesto, títulos, empaquetado, normalización)
 docs/SOURCES.md             Origen y licencia de cada librería e icono
 docs/ARCHITECTURE.md        Cómo funciona el pipeline y por qué
+CLAUDE.md                   Guía para trabajar en el repo con Claude Code (reglas y comandos)
 .github/workflows/          CI (validate.yml) y versiones (publish.yml → release.yml)
 ```
 
