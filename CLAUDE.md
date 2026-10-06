@@ -38,6 +38,7 @@ python scripts/validate.py [-v]                  # formato, 64×64, títulos, ra
 python scripts/compare.py --ref origin/main -v   # diferencias icono a icono contra otra versión
 python scripts/package.py                        # ZIP de la release en dist/ (ignorado por git)
 python scripts/readme.py [--check]               # regenera tabla, enlaces a diagrams.net y totales de los README
+scripts/install-drawio-desktop.bat               # instalador de Draw.io de escritorio (Windows), incluido en el ZIP
 python scripts/release.py next --bump minor      # versión que calcularía el botón «Publicar versión»
 ```
 
@@ -96,6 +97,10 @@ patrón en `RAW_TITLE_PATTERNS` de `scripts/validate.py`. Los títulos deben ser
 - **Enlaces a diagrams.net** (`readme.py`): parámetro `clibs` con la URL raw de cada `.xml` en `main`,
   codificada **una sola vez**. Con doble codificación cargan igual, pero diagrams.net muestra el título
   como `Microsoft%20Fabric`. Solo funcionan en la versión web; la app de escritorio usa el ZIP.
+- **Instalador de escritorio** (`install-drawio-desktop.ps1` + `.bat`, solo Windows). El `.ps1` va en **UTF-8
+  sin BOM** (con BOM, `irm … | iex` falla en PowerShell 5.1) y debe parsear en 5.1 y 7; el `.bat` en **CRLF**
+  (`.gitattributes`). Solo *lee* el estado de Draw.io; nunca lo escribas. No intentes automatizar la primera
+  importación: está investigado y descartado (ver «Instalador de escritorio» en `docs/ARCHITECTURE.md`).
 - **`scripts/iconlib/`** se llama así porque `.gitignore` (plantilla de Python) ignora `lib/`.
 - **`TODO.md`** es un archivo local del mantenedor, ignorado por git: no lo uses como documentación.
 - **Dependencias**: solo biblioteca estándar, salvo Pillow (importado de forma diferida, solo en

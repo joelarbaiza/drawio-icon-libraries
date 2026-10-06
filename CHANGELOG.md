@@ -5,6 +5,12 @@ las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+### Añadido
+- **Instalador para Draw.io de escritorio (Windows)**: `install-drawio-desktop.bat` (doble clic) dentro del ZIP de
+  la release, o `irm … | iex` en PowerShell. Instala las librerías en una carpeta fija y, al volver a ejecutarlo,
+  las actualiza allí donde Draw.io ya las carga: iconos nuevos sin duplicados ni reimportar. Detecta las
+  librerías importadas a mano antes. La primera importación sigue siendo manual (limitación de Draw.io).
+
 ## [1.2.0] - 2026-10-06
 
 ### Añadido

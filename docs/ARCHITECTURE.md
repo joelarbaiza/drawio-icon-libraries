@@ -118,6 +118,38 @@ copiados a una carpeta equivocada, que si no quedarían fuera sin aviso).
   tiene siempre el mismo nombre, así que `releases/latest/download/drawio-icon-libraries.zip` apunta
   siempre a la última versión.
 
+## Instalador de escritorio (Windows)
+
+`scripts/install-drawio-desktop.ps1` (lanzado con doble clic por `install-drawio-desktop.bat`, ambos dentro del
+ZIP de la release) copia las librerías a una carpeta fija y las mantiene al día:
+
+1. **Dónde instalar**, en este orden: `-InstallDir`; la carpeta guardada en
+   `%LOCALAPPDATA%\drawio-icon-libraries\install-dir.txt` por una ejecución anterior; la carpeta desde la que
+   Draw.io ya carga nuestras librerías (detectada leyendo, solo lectura, su localStorage); o
+   `%LOCALAPPDATA%\drawio-icon-libraries\libraries`.
+2. **Actualizar** es sobrescribir los `.xml` en esa carpeta: Draw.io guarda las librerías por ruta, así que al
+   abrirse carga los archivos nuevos. Sin duplicados y sin pasos manuales.
+3. **Primera vez**: abre la carpeta y Draw.io y pide importar cada `.xml` una vez con *Abrir biblioteca*.
+
+**Por qué la primera importación no se automatiza** (investigado en el código de drawio-desktop 31.7, no lo
+reabras sin una versión nueva de Draw.io que cambie esto):
+
+- La app solo lee archivos locales «autorizados»: abiertos con su diálogo, pasados por línea de comandos o
+  declarados en su configuración (Extras → Configuración). La CSP (`connect-src 'self'`) impide cargar
+  librerías desde URLs, así que los enlaces «Open ↗» de la web no sirven en escritorio.
+- `urlParams.json` (leído de la carpeta de trabajo al arrancar) sí llega a la página, pero Electron codifica la
+  URL y el `;` que separa librerías en `clibs` llega como `%3B`: solo funciona con **una** librería.
+- `defaultCustomLibraries` de la configuración solo se aplica a perfiles que nunca han abierto una librería, y
+  la configuración vive en una base LevelDB interna que no se debe escribir desde fuera.
+- Automatizarlo con el puerto de depuración de Chromium (inyectar JavaScript en Draw.io) se descartó: es
+  inaceptable en un instalador y depende de detalles internos.
+
+Lectura del estado de Draw.io: `%APPDATA%\draw.io\Local Storage\leveldb`. El registro `.log` se recompone
+según el formato LevelDB (bloques de 32 KB con cabeceras de 7 bytes que pueden partir un valor); las tablas
+`.ldb` suelen ir comprimidas (Snappy) y no se interpretan. Por eso el marcador `install-dir.txt` es la fuente
+principal tras la primera ejecución. Posible mejora no verificada: la clave `libraries` de la configuración
+añade una sección en «Más formas» con rutas locales autorizadas (30 casillas en un diálogo en vez de 30 diálogos).
+
 ## Decisiones menores
 
 - El paquete se llama `scripts/iconlib/` y no `lib/` porque el `.gitignore` de plantilla de Python

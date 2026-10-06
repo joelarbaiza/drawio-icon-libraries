@@ -89,11 +89,20 @@ Each entry uses `w:64`, `h:64`, `aspect:"fixed"`, a readable `title` (e.g. `Batc
 in the left panel: nothing to download or import. The links always load the latest version of the libraries.
 GitHub opens links in the same tab; use **Ctrl/⌘ + click** or **middle-click** to open them in a new one.
 
-**Draw.io desktop app or offline:**
+**Draw.io desktop app (Windows) — installer:**
 
-1. [Download the ZIP](#download) and unzip it.
-2. In Draw.io, go to `File → Open Library from → File…`.
-3. Import any `.xml` from the `libraries` folder.
+1. [Download the ZIP](#download), unzip it and double-click **`install-drawio-desktop.bat`**.
+   (Or, in PowerShell, without downloading anything: `irm https://raw.githubusercontent.com/joelarbaiza/drawio-icon-libraries/main/scripts/install-drawio-desktop.ps1 | iex`.)
+2. **First time only:** in Draw.io, import each library you want with `File → Open Library from → File…`,
+   choosing the `.xml` files in the folder the installer opens. Draw.io remembers them.
+3. **To update:** run the installer again. It replaces the files where Draw.io already loads them, so you get
+   the new icons with no duplicates and nothing to re-import. It also detects libraries you imported by hand before.
+
+> Windows may show a SmartScreen warning for a downloaded script: **More info → Run anyway**. Draw.io desktop
+> only reads local files you open through its own dialog, which is why the first import is manual.
+
+**macOS / Linux desktop or offline:** [download the ZIP](#download), unzip it and import any `.xml` from the
+`libraries` folder with `File → Open Library from → File…`.
 
 Then drag icons from the side panel onto the canvas. Use the search box to find icons by name.
 
@@ -106,7 +115,7 @@ Then drag icons from the side panel onto the canvas. Use the search box to find 
 [![Download libraries (ZIP)](https://img.shields.io/badge/Download-libraries%20ZIP-brightgreen)](https://github.com/joelarbaiza/drawio-icon-libraries/releases/latest/download/drawio-icon-libraries.zip)
 [![Latest version](https://img.shields.io/github/v/release/joelarbaiza/drawio-icon-libraries?label=latest%20version&color=blue)](https://github.com/joelarbaiza/drawio-icon-libraries/releases/latest)
 
-- **Download libraries ZIP** downloads the latest version directly: every `.xml` library from `/libraries`, plus `LICENSE` and `SOURCES.md` (origin and license of the icons).
+- **Download libraries ZIP** downloads the latest version directly: every `.xml` library from `/libraries`, the Windows installer for Draw.io desktop, `LICENSE` and `SOURCES.md` (origin and license of the icons).
 - **latest version** shows which version that is and opens its [release notes](https://github.com/joelarbaiza/drawio-icon-libraries/releases/latest) (what changed). It updates automatically with each release.
 
 ---
