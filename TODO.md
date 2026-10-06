@@ -194,20 +194,20 @@ Tareas:
 - [x] **Verificar disponibilidad** de fuentes vectoriales. Evaluadas (detalle en `docs/SOURCES.md`):
   - Fluent UI «Office brand icons» (CDN oficial): **descartada** por licencia (solo para desarrollar Add-ins/SharePoint) y diseño 2019.
   - Microsoft 365 architecture icons: licencia válida, pero solo iconos de contenido, sin logotipos.
-  - DamoBird365/microsoft-cloud-icons: mismo diseño 2025, vectorial, **sin licencia ni procedencia declarada** → aceptada por el mantenedor para 20 iconos.
+  - DamoBird365/microsoft-cloud-icons: mismo diseño 2025, vectorial, **sin licencia ni procedencia declarada** → aceptada por el mantenedor para 23 iconos (los 20 iniciales + Power Apps, Power Automate y Power BI, que pasan al diseño 2025).
   - Wikimedia Commons (dominio público, atribuidos a Microsoft): Exchange y Windows.
   - micronaut.io (logo oficial, uso comunitario permitido): Micronaut.
-- [x] Editor, Power Apps, Power Automate y Power BI: sus PNG eran solo sombras → se eliminaron las capas `<image>` del mismo SVG (cambia < 0,3 % de los píxeles).
+- [x] Editor: sus PNG eran solo sombras → se eliminaron las capas `<image>` del mismo SVG (cambia < 0,3 % de los píxeles).
 - [x] Reemplazar y regenerar con `build.py all` (Inkscape 1.4.4): cambian exactamente los 27 SVG; los otros 690 salen idénticos byte a byte.
 - [x] Revisión visual de los 27 normalizados a 64×64: mismo diseño, centrados y nítidos.
 - [x] Lista blanca del validador vaciada.
-- [ ] *Opcional:* sustituir los 20 de DamoBird365 si aparece una fuente oficial de Microsoft con licencia clara.
-- [ ] *Opcional:* Power Apps, Power Automate y Power BI de Office 365 usan el diseño anterior; DamoBird365 tiene el diseño 2025 (decisión del mantenedor).
+- [ ] *Opcional:* sustituir los 23 de DamoBird365 si aparece una fuente oficial de Microsoft con licencia clara.
+- [x] Power Apps, Power Automate y Power BI de Office 365 pasados al diseño 2025 de DamoBird365 (decisión del mantenedor).
 
 **Hecho cuando:** `Office 365.xml` < 500 KB y lista blanca vacía (o con justificación escrita por cada excepción).
 
 ✅ **Completada.** Resultados:
-- `Office 365.xml`: 5,0 MB → **340 KB** ✅. `Operating Systems.xml`: 1,2 MB → 75 KB. `Programming.xml`: 394 → 356 KB.
+- `Office 365.xml`: 5,0 MB → **262 KB** ✅. `Operating Systems.xml`: 1,2 MB → 75 KB. `Programming.xml`: 394 → 356 KB.
 - Lista blanca vacía; `validate.py` OK con 0 raster ✅.
 - Repo sin `.git`: 27 → **13 MB** (cumple también el objetivo de la etapa 3, < 20 MB).
 - `pack --check` OK; `compare.py`: 27 SVG distintos (los sustituidos a propósito), 690 idénticos, 0 títulos cambiados.
