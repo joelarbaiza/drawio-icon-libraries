@@ -12,7 +12,7 @@ Comprobaciones por librería (*.xml):
     - Sin títulos duplicados dentro de la librería.
 
 Sale con código 1 si hay algún error; 0 si todo pasa.
-Solo usa la biblioteca estándar de Python (3.9+).
+Solo usa la biblioteca estándar de Python (3.14+).
 """
 
 from __future__ import annotations

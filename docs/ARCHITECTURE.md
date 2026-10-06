@@ -101,7 +101,7 @@ copiados a una carpeta equivocada, que si no quedarían fuera sin aviso).
 ## CI y versiones
 
 - [validate.yml](../.github/workflows/validate.yml): en cada PR y push a `main`, en Ubuntu con
-  Python 3.9 (mínimo declarado) y 3.x: `validate.py`, `pack --check` y `package.py`.
+  Python 3.14 (mínimo declarado) y 3.x (siempre la más reciente): `validate.py`, `pack --check` y `package.py`.
 - [publish.yml](../.github/workflows/publish.yml) («Publicar versión», manual): calcula la versión
   siguiente desde el último tag, prepara `CHANGELOG.md` y `pyproject.toml` con `scripts/release.py`, hace
   commit en `main`, sube el tag (`git push --atomic`, ambos o ninguno) y llama a `release.yml`.
