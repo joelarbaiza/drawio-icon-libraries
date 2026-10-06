@@ -19,10 +19,31 @@ Los paquetes de origen se identificaron a partir de las rutas de los notebooks o
 | Developing | Recopilación manual (sin paquete documentado) | `svg/Developing/source` | — |
 | Programming | Recopilación manual (sin paquete documentado) | `svg/Programming/source` | — |
 
+## Iconos sustituidos por versiones vectoriales (etapa 4, 05-10-2026)
+
+Estos 27 iconos embebían imágenes PNG dentro del SVG. Se reemplazaron por versiones
+100 % vectoriales del **mismo diseño**, comprobado visualmente contra el original.
+
+| Icono(s) | Origen de la versión vectorial | Licencia / términos |
+|---|---|---|
+| Office 365: Access, Clipchamp, Defender, Excel, Family Safety, Forms, OneDrive, OneNote, Outlook, Planner, PowerPoint, Project, Publisher, SharePoint, Stream, Sway, Teams, To Do, Visio, Word | [DamoBird365/microsoft-cloud-icons](https://github.com/DamoBird365/microsoft-cloud-icons) (commit `771f282`, 2026-04-01) | ⚠️ El repositorio **no declara licencia ni la procedencia** de cada icono. El arte es © Microsoft, igual que el de los iconos raster que sustituye. Elegido por el mantenedor por ser el único origen vectorial encontrado con el diseño actual (2025). |
+| Office 365: Exchange | [Wikimedia Commons: Microsoft Exchange (2019-present).svg](https://commons.wikimedia.org/wiki/File:Microsoft_Exchange_(2019-present).svg), atribuido a Microsoft | Dominio público según Commons (geometría simple); sigue siendo marca registrada de Microsoft. |
+| Office 365: Editor, Power Apps, Power Automate, Power BI | El mismo SVG que ya estaba en el repo, **sin sus capas PNG** (eran sombras suaves: cambia < 0,3 % de los píxeles al renderizar) | Igual que el original. |
+| Operating Systems: Windows | [Wikimedia Commons: Windows 11 start button icon.svg](https://commons.wikimedia.org/wiki/File:Windows_11_start_button_icon.svg), atribuido a Microsoft | Dominio público según Commons (geometría simple); marca registrada de Microsoft. |
+| Programming: Micronaut | Logo oficial «Stacked Black»: https://micronaut.io/micronaut-assets/logos/micronaut-stacked-black.svg ([página de logos](https://micronaut.io/brand-guidelines/micronaut-logos/)) | Marca de Object Computing. Uso comunitario permitido sin consentimiento previo según la [Micronaut Trademark Policy](https://micronaut.io/brand-guidelines/), siempre que no sea en nombre ni en medios de un usuario comercial. |
+
+Fuentes evaluadas y **descartadas**:
+
+- Fluent UI «Office brand icons» (CDN `res-1.cdn.office.net/.../brand-icons/product/svg`): oficiales, pero el
+  *Microsoft Fabric Assets License* solo permite usarlos «para desarrollar para Office y otros endpoints de
+  Office 365» (Add-ins, SharePoint…), no redistribuirlos en una librería. Además es el diseño de 2019.
+- Microsoft 365 architecture icons (`2024-microsoft-365-content-icons.zip`): licencia adecuada para diagramas,
+  pero solo contiene iconos de contenido, no logotipos de producto.
+
 ## Pendiente
 
-- [ ] Verificar cada URL y anotar versión y fecha de descarga.
-- [ ] Documentar el origen y la licencia de cada icono de las recopilaciones manuales
+- [ ] Verificar cada URL de la tabla principal y anotar versión y fecha de descarga.
+- [ ] Documentar el origen y la licencia del resto de iconos de las recopilaciones manuales
       (Office 365, Operating Systems, Developing, Programming).
-- [ ] 27 iconos embeben imágenes raster en lugar de vectores (25 de Office 365, Windows y Micronaut);
-      ver la etapa 4 de `TODO.md`.
+- [ ] Si aparece una fuente oficial con licencia clara para los iconos de producto de Microsoft 365,
+      sustituir los 20 tomados de DamoBird365.

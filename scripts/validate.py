@@ -39,19 +39,9 @@ RAW_TITLE_PATTERNS = [
     (re.compile(r"\.svg$", re.I), "extensión '.svg'"),
 ]
 
-# Iconos que hoy embeben raster (<image>) a la espera de una versión vectorial.
-# Ver TODO.md, etapa 4. Vaciar esta lista a medida que se reemplacen.
-RASTER_ALLOWLIST: dict[str, set[str]] = {
-    "Office 365": {
-        "Access", "Clipchamp", "Defender", "Editor", "Excel", "Exchange",
-        "Family Safety", "Forms", "OneDrive", "OneNote", "Outlook", "Planner",
-        "Power Apps", "Power Automate", "Power BI", "PowerPoint", "Project",
-        "Publisher", "Sharepoint", "Stream", "Sway", "Teams", "To Do", "Visio",
-        "Word",
-    },
-    "Operating Systems": {"Windows"},
-    "Programming": {"Micronaut"},
-}
+# Iconos autorizados a embeber raster (<image>), por librería y título, con su
+# justificación en docs/SOURCES.md. Vacía desde la etapa 4: todos son vectoriales.
+RASTER_ALLOWLIST: dict[str, set[str]] = {}
 
 MXLIBRARY_RE = re.compile(r"^\s*<mxlibrary>(.*)</mxlibrary>\s*$", re.S)
 

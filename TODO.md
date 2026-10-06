@@ -15,7 +15,7 @@ Etapa 0 ──> Etapa 1 ──> Etapa 2 ──> Etapa 3 ──> Etapa 5 ──> 
 | 1 | `build.py` + manifiesto | 1–2 días | 0 | ✅ |
 | 2 | Títulos limpios | ½ día | 1 | ✅ |
 | 3 | Borrar peso y notebooks | ½ día | 1 | ✅ |
-| 4 | Iconos raster → vectorial | variable | — (paralela) | ⬜ |
+| 4 | Iconos raster → vectorial | variable | — (paralela) | ✅ |
 | 5 | CI + releases | ½ día | 0, 2 | ⬜ |
 | 6 | Documentación | 1 día | 1, 3 | ⬜ |
 
@@ -166,7 +166,7 @@ Estado del repo en el commit `8110279`, medido con un script de validación:
 ✅ **Completada.** Resultados:
 - `git ls-files`: 4.511 → **1.484** archivos ✅.
 - `.git`: 39 MB → **14 MB** (pack de 32,6 → 12,9 MiB) ✅.
-- Repo sin `.git`: 60 → **27 MB** ❌ (objetivo 20 MB). 16 MB son los iconos raster de Office 365 y Operating Systems (`svg/` + `libraries/`): el objetivo se cumplirá con la **etapa 4**.
+- Repo sin `.git`: 60 → 27 MB tras esta etapa; **13 MB** tras la etapa 4 ✅ (objetivo 20 MB).
 - `pack --check`, `validate.py` y `compare.py --ref v0-legacy`: OK.
 
 Comando de force-push (protegido: falla si alguien más ha subido cambios desde `8110279` / `a41568a`):
@@ -185,18 +185,32 @@ git push --force-with-lease=main:81102793a764f8040699fd3b6ed7ce01ecc6be60 \
 
 Iconos afectados (27):
 
-- [ ] **Office 365 (25):** Access, Clipchamp, Defender, Editor, Excel, Exchange, Family Safety, Forms, OneDrive, OneNote, Outlook, Planner, Power Apps, Power Automate, Power BI, PowerPoint, Project, Publisher, Sharepoint, Stream, Sway, Teams, To Do, Visio, Word.
-- [ ] **Operating Systems (1):** Windows.
-- [ ] **Programming (1):** Micronaut.
+- [x] **Office 365 (25):** Access, Clipchamp, Defender, Editor, Excel, Exchange, Family Safety, Forms, OneDrive, OneNote, Outlook, Planner, Power Apps, Power Automate, Power BI, PowerPoint, Project, Publisher, Sharepoint, Stream, Sway, Teams, To Do, Visio, Word.
+- [x] **Operating Systems (1):** Windows.
+- [x] **Programming (1):** Micronaut.
 
 Tareas:
 
-- [ ] **Verificar disponibilidad** de fuentes vectoriales oficiales (Microsoft Learn publica SVG de M365; Micronaut tiene logo SVG en su repositorio). No se asume que existan todas.
-- [ ] Reemplazar los que se encuentren y regenerar con `build.py`.
-- [ ] Los que no se encuentren: documentarlo en `docs/SOURCES.md` y mantenerlos en la lista blanca del validador con justificación.
-- [ ] Ir vaciando la lista blanca según se resuelvan.
+- [x] **Verificar disponibilidad** de fuentes vectoriales. Evaluadas (detalle en `docs/SOURCES.md`):
+  - Fluent UI «Office brand icons» (CDN oficial): **descartada** por licencia (solo para desarrollar Add-ins/SharePoint) y diseño 2019.
+  - Microsoft 365 architecture icons: licencia válida, pero solo iconos de contenido, sin logotipos.
+  - DamoBird365/microsoft-cloud-icons: mismo diseño 2025, vectorial, **sin licencia ni procedencia declarada** → aceptada por el mantenedor para 20 iconos.
+  - Wikimedia Commons (dominio público, atribuidos a Microsoft): Exchange y Windows.
+  - micronaut.io (logo oficial, uso comunitario permitido): Micronaut.
+- [x] Editor, Power Apps, Power Automate y Power BI: sus PNG eran solo sombras → se eliminaron las capas `<image>` del mismo SVG (cambia < 0,3 % de los píxeles).
+- [x] Reemplazar y regenerar con `build.py all` (Inkscape 1.4.4): cambian exactamente los 27 SVG; los otros 690 salen idénticos byte a byte.
+- [x] Revisión visual de los 27 normalizados a 64×64: mismo diseño, centrados y nítidos.
+- [x] Lista blanca del validador vaciada.
+- [ ] *Opcional:* sustituir los 20 de DamoBird365 si aparece una fuente oficial de Microsoft con licencia clara.
+- [ ] *Opcional:* Power Apps, Power Automate y Power BI de Office 365 usan el diseño anterior; DamoBird365 tiene el diseño 2025 (decisión del mantenedor).
 
 **Hecho cuando:** `Office 365.xml` < 500 KB y lista blanca vacía (o con justificación escrita por cada excepción).
+
+✅ **Completada.** Resultados:
+- `Office 365.xml`: 5,0 MB → **340 KB** ✅. `Operating Systems.xml`: 1,2 MB → 75 KB. `Programming.xml`: 394 → 356 KB.
+- Lista blanca vacía; `validate.py` OK con 0 raster ✅.
+- Repo sin `.git`: 27 → **13 MB** (cumple también el objetivo de la etapa 3, < 20 MB).
+- `pack --check` OK; `compare.py`: 27 SVG distintos (los sustituidos a propósito), 690 idénticos, 0 títulos cambiados.
 
 ---
 
