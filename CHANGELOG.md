@@ -5,6 +5,8 @@ las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+## [1.1.0] - 2026-10-06
+
 ### Añadido
 - Botón **Publicar versión** en GitHub Actions (`publish.yml` + `scripts/release.py`): calcula la versión,
   actualiza el CHANGELOG y `pyproject.toml`, crea el tag y publica la release sin pasos manuales.
@@ -51,4 +53,5 @@ Primera versión con pipeline reproducible, CI y releases.
 - 31 notebooks de Jupyter (disponibles en el tag `v0-legacy`).
 - 3.010 PNG y SVG de Fabric sin uso (33 MB), también del historial de git.
 
+[1.1.0]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.1.0
 [1.0.0]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.0.0
