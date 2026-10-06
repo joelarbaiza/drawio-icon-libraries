@@ -12,6 +12,8 @@ Primera versión con pipeline reproducible, CI y releases.
   (`pack`, solo Python). Sustituye a los 31 notebooks con rutas fijas.
 - `libraries.json`: manifiesto con las 30 librerías, sus carpetas, reglas de título y títulos manuales.
 - `scripts/validate.py`, `scripts/compare.py` y `scripts/package.py`.
+- `pack` falla si hay SVG fuera de las carpetas de `libraries.json` o huérfanos entre `source/` y `64/`,
+  para que un icono copiado a la carpeta equivocada no se pierda en silencio.
 - CI en GitHub Actions (`validate.yml`) y publicación automática de releases con ZIP (`release.yml`).
 - Documentación: `CONTRIBUTING.md`, `docs/ARCHITECTURE.md`, `docs/SOURCES.md`.
 
@@ -22,7 +24,7 @@ Primera versión con pipeline reproducible, CI y releases.
 - **27 iconos raster sustituidos por versiones vectoriales** del mismo diseño (25 de Office 365, Windows y
   Micronaut). Power Apps, Power Automate y Power BI de Office 365 pasan al diseño 2025.
   `Office 365.xml` baja de 5,0 MB a 262 KB.
-- Estructura de `svg/` uniforme: `svg/<librería>/source/` (originales) y `svg/<librería>/64/` (normalizados).
+- Estructura de `svg/` uniforme: cada librería tiene `source/` (originales) y `64/` (normalizados).
 - Los SVG se embeben con saltos de línea LF: las librerías son idénticas byte a byte al generarlas en
   Windows, macOS o Linux.
 - El botón de descarga del README apunta a la última release en lugar de a un servicio de terceros.

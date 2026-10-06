@@ -67,7 +67,7 @@ Each entry uses `w:64`, `h:64`, `aspect:"fixed"`, a readable `title` (e.g. `Batc
 ## 🚀 Quick usage in Draw.io/diagrams.net
 
 1. Open diagrams.net (or the Draw.io desktop app).
-2. Go to `File → Open Library` and choose `File…`.
+2. Go to `File → Open Library from → File…`.
 3. Import any `.xml` from `/libraries`.
 4. Drag icons from the side panel onto the canvas. Use the search box to find icons by name.
 
@@ -102,8 +102,8 @@ Works on Windows, macOS and Linux; no WSL or Jupyter required.
 ### Usage
 
 ```bash
-python scripts/build.py list                     # libraries and icon counts
-python scripts/build.py pack                     # rebuild every .xml from svg/*/64 (no Inkscape)
+python scripts/build.py list -v                  # libraries, icon counts and their source/ folder
+python scripts/build.py pack                     # rebuild every .xml from the 64/ folders (no Inkscape)
 python scripts/build.py all -l "Azure Web"       # normalize + pack one library (needs Inkscape)
 python scripts/validate.py                       # same checks as CI
 ```
@@ -114,8 +114,8 @@ Every library is declared in [`libraries.json`](libraries.json) (source folder, 
 
 ```
 libraries/<…>.xml          Draw.io libraries (generated — do not edit by hand)
-svg/<library>/source/      original SVGs from the vendor
-svg/<library>/64/          SVGs normalized to 64×64 (generated, committed)
+svg/…/<library>/source/    original SVGs from the vendor (exact folder: `build.py list -v`)
+svg/…/<library>/64/        SVGs normalized to 64×64 (generated, committed)
 libraries.json             manifest: which folder builds which library, and how icons are titled
 scripts/                   build.py · validate.py · compare.py · package.py · iconlib/
 docs/                      SOURCES.md (icon origin and terms) · ARCHITECTURE.md (how it works)
@@ -146,9 +146,9 @@ Contributions are welcome! Add new icons or libraries, improve the scripts or th
 The full guide — adding icons, creating a library, title rules, checks run by CI, and releases — is in **[CONTRIBUTING.md](CONTRIBUTING.md)** (in Spanish). In short:
 
 1. Create a branch from `main` (`feat/lib-<library>` or `fix/<short-description>`).
-2. Put the original SVGs in `svg/<library>/source/` and run `python scripts/build.py all -l "<library>"`.
+2. Put the original SVGs in the library's `source/` folder (see `build.py list -v`) and run `python scripts/build.py all -l "<library>"`.
 3. Run `python scripts/validate.py` and check the icons in Draw.io.
-4. Commit `source/`, `64/` and the `.xml`, document the origin in `docs/SOURCES.md`, and open a Pull Request to `main`. CI must pass.
+4. Commit `source/`, `64/` and the `.xml` (plus `libraries.json` for a new library), document the origin in `docs/SOURCES.md`, and open a Pull Request to `main`. CI must pass.
 
 See [CHANGELOG.md](CHANGELOG.md) for the release history and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for how the pipeline works.
 

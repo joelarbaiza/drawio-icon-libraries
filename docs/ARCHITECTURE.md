@@ -23,8 +23,8 @@ Todo lo gobierna [libraries.json](../libraries.json): una entrada por librería 
 
 ## Normalización a 64×64
 
-Los proveedores entregan SVG de tamaños distintos (Azure 18×18, Fabric 48×48, otros 96×96) y con
-márgenes distintos. `normalize` los lleva a un lienzo común **sin rasterizar el resultado**:
+Los proveedores entregan SVG de tamaños y márgenes distintos (p. ej. Azure 18×18, Office 365 24×24,
+Programming 32×32, Fabric 48×48, Dynamics 365 96×96, y algunos `viewBox` arbitrarios). `normalize` los lleva a un lienzo común **sin rasterizar el resultado**:
 
 1. **Medir.** Inkscape exporta el SVG a PNG (1024 px de ancho, área de página). Pillow calcula la caja
    del contenido visible: píxeles con alfa ≥ 80, para ignorar sombras suaves.
@@ -69,8 +69,8 @@ No elimines ninguna de las tres piezas: cualquiera de ellas por separado deja al
 
 La normalización **no** es reproducible entre versiones de Inkscape: el rasterizado puede mover un
 píxel la caja medida y cambiar los decimales del `transform`. Con Inkscape 1.4.4 se re-normalizaron
-74 iconos de 6 librerías (Developing, Azure Blockchain, Power Platform, Office 365, Programming,
-Operating Systems) y salieron idénticos a los commiteados; con otra versión, compara con tolerancia numérica.
+115 iconos de 7 librerías (Developing, Azure Blockchain, Azure Web, Power Platform, Office 365,
+Programming y Operating Systems) y salieron idénticos a los commiteados; con otra versión, compara con tolerancia numérica.
 
 ## Por qué se commitean los SVG de 64×64
 
@@ -82,7 +82,9 @@ Son salida regenerable, pero se guardan en el repo porque:
 - Un cambio en la normalización se revisa como diff de SVG legible, no como base64.
 
 El riesgo de que `64/` y el `.xml` se desincronicen lo cubre `pack --check` en la CI. Además, `pack`
-falla si `64/` tiene SVG sin original en `source/` o al revés (`normalize --prune` limpia los huérfanos).
+falla si `64/` tiene SVG sin original en `source/` o al revés (`all -l <librería> --prune` limpia los
+huérfanos), y si hay SVG bajo `svg/` fuera de las carpetas declaradas en `libraries.json` (iconos
+copiados a una carpeta equivocada, que si no quedarían fuera sin aviso).
 
 ## Validaciones
 
@@ -93,6 +95,7 @@ falla si `64/` tiene SVG sin original en `source/` o al revés (`normalize --pru
 | Títulos | `validate.py` | título vacío, duplicado en la librería o con restos del nombre de archivo (`RAW_TITLE_PATTERNS`) |
 | Raster | `validate.py` | un SVG embebe `<image>` y no está en `RASTER_ALLOWLIST` (vacía) |
 | Sincronía | `build.py pack --check` | un `.xml` no coincide con lo que generan sus SVG de 64×64 |
+| Carpetas | `build.py pack` | hay SVG huérfanos entre `source/` y `64/`, o SVG fuera de las carpetas del manifiesto |
 | Regresiones | `compare.py --ref <ref>` | (manual) un icono cambia cuando no debería |
 
 ## CI y versiones

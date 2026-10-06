@@ -10,7 +10,7 @@ Los paquetes de origen se identificaron a partir de las rutas de los notebooks o
 | Librería(s) | Paquete de origen | Carpeta en `svg/` | Página oficial (verificada 05-10-2026) |
 |---|---|---|---|
 | Azure (20 librerías) | `Azure_Public_Service_Icons_V22`, carpeta `Icons/<categoría>` | `svg/Azure/<librería>/source` (SVG de 18×18) | https://learn.microsoft.com/azure/architecture/icons/ |
-| Dynamics 365, Dynamics 365 Mixed Reality, Dynamics 365 sub app icons | `Dynamics_365_Icons_scalable_2024` | `svg/Dynamics 365/<librería>/source` | https://learn.microsoft.com/dynamics365/get-started/icons |
+| Dynamics 365, Dynamics 365 Mixed Reality, Dynamics 365 sub app icons | `Dynamics_365_Icons_scalable_2024` | `svg/Dynamics 365/Dynamics 365 App Icons\|Mixed Reality Icons\|Sub App Icons/source` | https://learn.microsoft.com/dynamics365/get-started/icons |
 | Microsoft Fabric | Paquete de iconos de Fabric, carpeta `icons/package/dist/svg`; se conservan solo las variantes de 48 px (sin `filled`/`regular`) | `svg/Fabric/source` (SVG de 48×48) | https://learn.microsoft.com/fabric/fundamentals/icons |
 | Microsoft Entra ID | `Microsoft Entra architecture icons - Oct 2023`, carpeta `Microsoft Entra color icons SVG` | `svg/Microsoft Entra ID/source` | https://learn.microsoft.com/entra/architecture/architecture-icons |
 | Power Platform | `Power_Platform_scalable` | `svg/Power Platform/source` | https://learn.microsoft.com/power-platform/guidance/icons |

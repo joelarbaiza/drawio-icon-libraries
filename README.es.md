@@ -67,7 +67,7 @@ Cada elemento lleva `w:64`, `h:64`, `aspect:"fixed"`, un `title` legible (p. ej.
 ## 🚀 Uso rápido en Draw.io/diagrams.net
 
 1. Abre diagrams.net (o Draw.io de escritorio).
-2. Ve a `File/Archivo → Open Library/Abrir biblioteca from/Desde → File…/Archivo…`
+2. Ve a `Archivo → Abrir biblioteca desde → Archivo…` (en inglés: `File → Open Library from → File…`).
 3. Importa cualquier `.xml` desde `/libraries`.
 4. Arrastra los iconos desde el panel lateral al lienzo. Usa el buscador para encontrarlos por nombre.
 
@@ -102,8 +102,8 @@ Funciona en Windows, macOS y Linux; no hace falta WSL ni Jupyter.
 ### Uso
 
 ```bash
-python scripts/build.py list                     # librerías y número de iconos
-python scripts/build.py pack                     # regenera todos los .xml desde svg/*/64 (sin Inkscape)
+python scripts/build.py list -v                  # librerías, número de iconos y su carpeta source/
+python scripts/build.py pack                     # regenera todos los .xml desde las carpetas 64/ (sin Inkscape)
 python scripts/build.py all -l "Azure Web"       # normaliza + empaqueta una librería (requiere Inkscape)
 python scripts/validate.py                       # las mismas comprobaciones que la CI
 ```
@@ -114,8 +114,8 @@ Cada librería se declara en [`libraries.json`](libraries.json) (carpeta de orig
 
 ```
 libraries/<…>.xml          librerías de Draw.io (generadas — no se editan a mano)
-svg/<librería>/source/     SVG originales del proveedor
-svg/<librería>/64/         SVG normalizados a 64×64 (generados, se commitean)
+svg/…/<librería>/source/   SVG originales del proveedor (carpeta exacta: `build.py list -v`)
+svg/…/<librería>/64/       SVG normalizados a 64×64 (generados, se commitean)
 libraries.json             manifiesto: qué carpeta genera cada librería y cómo se titulan los iconos
 scripts/                   build.py · validate.py · compare.py · package.py · iconlib/
 docs/                      SOURCES.md (origen y condiciones) · ARCHITECTURE.md (cómo funciona)
@@ -146,9 +146,9 @@ También puedes ver cuántas estrellas tiene ahora:
 La guía completa —añadir iconos, crear una librería, reglas de título, comprobaciones de la CI y publicación de versiones— está en **[CONTRIBUTING.md](CONTRIBUTING.md)**. En resumen:
 
 1. Crea una rama desde `main` (`feat/lib-<librería>` o `fix/<breve-descripcion>`).
-2. Pon los SVG originales en `svg/<librería>/source/` y ejecuta `python scripts/build.py all -l "<librería>"`.
+2. Pon los SVG originales en la carpeta `source/` de la librería (ver `build.py list -v`) y ejecuta `python scripts/build.py all -l "<librería>"`.
 3. Ejecuta `python scripts/validate.py` y revisa los iconos en Draw.io.
-4. Commitea `source/`, `64/` y el `.xml`, documenta el origen en `docs/SOURCES.md` y abre un Pull Request hacia `main`. La CI debe pasar en verde.
+4. Commitea `source/`, `64/` y el `.xml` (y `libraries.json` si es una librería nueva), documenta el origen en `docs/SOURCES.md` y abre un Pull Request hacia `main`. La CI debe pasar en verde.
 
 Consulta [CHANGELOG.md](CHANGELOG.md) para el historial de versiones y [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) para saber cómo funciona el pipeline.
 

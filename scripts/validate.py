@@ -124,10 +124,9 @@ def main() -> int:
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parent.parent,
                         help="raíz del repositorio (por defecto, la del script)")
     parser.add_argument("--verbose", "-v", action="store_true", help="lista cada error")
-    args = parser.parse_args()
-
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
+    args = parser.parse_args()
 
     root = args.root.resolve()
     libraries = sorted((root / "libraries").rglob("*.xml"))

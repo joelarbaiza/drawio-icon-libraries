@@ -12,16 +12,17 @@ lee [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 | Añadir o cambiar iconos (normalizar SVG a 64×64) | Lo anterior + **[Inkscape 1.x](https://inkscape.org)** + **Pillow** (`pip install -r requirements.txt`) |
 
 `build.py` busca Inkscape en este orden: `--inkscape RUTA`, la variable `INKSCAPE`, el `PATH` y la ruta
-de instalación por defecto (Windows: `C:\Program Files\Inkscape\bin`, macOS: `/Applications/Inkscape.app`).
-No hace falta WSL.
+de instalación por defecto (Windows: `C:\Program Files\Inkscape\bin\inkscape.com`, macOS:
+`/Applications/Inkscape.app/Contents/MacOS/inkscape`). `--inkscape` e `INKSCAPE` deben apuntar al
+**ejecutable**, no a la carpeta. No hace falta WSL.
 
 ## Estructura del repositorio
 
 ```
 libraries.json              Manifiesto: qué carpeta de SVG genera cada librería y cómo se titulan
 libraries/<…>.xml           Librerías de Draw.io (GENERADAS: no se editan a mano)
-svg/<librería>/source/      SVG originales, tal como vienen del proveedor
-svg/<librería>/64/          SVG normalizados a 64×64 (generados por `normalize`, se commitean)
+svg/…/<librería>/source/    SVG originales, tal como vienen del proveedor
+svg/…/<librería>/64/        SVG normalizados a 64×64 (generados por `normalize`, se commitean)
 scripts/build.py            CLI: list · normalize · pack · all
 scripts/validate.py         Comprueba las librerías (formato, 64×64, títulos, raster, duplicados)
 scripts/compare.py          Compara las librerías icono a icono contra una versión de git
@@ -32,44 +33,58 @@ docs/ARCHITECTURE.md        Cómo funciona el pipeline y por qué
 .github/workflows/          CI (validate.yml) y publicación de versiones (release.yml)
 ```
 
+> La carpeta exacta de cada librería está en `libraries.json` y la muestra `python scripts/build.py list -v`:
+> las de Azure cuelgan de `svg/Azure/`, Fabric está en `svg/Fabric/` y las de Dynamics 365 en carpetas con otro
+> nombre (`svg/Dynamics 365/Dynamics 365 App Icons/`). En el resto del documento, `<source>` y `<64>` son esas
+> carpetas.
+
 ## Comandos frecuentes
 
 ```bash
-python scripts/build.py list                         # librerías del manifiesto y nº de iconos
+python scripts/build.py list -v                      # librerías, nº de iconos y su carpeta source/
 python scripts/build.py all -l "Azure Web"           # normaliza + empaqueta una librería (Inkscape)
 python scripts/build.py pack                         # regenera todos los .xml desde svg/*/64 (sin Inkscape)
 python scripts/validate.py                           # lo mismo que comprueba la CI
 python scripts/build.py pack --check                 # ¿los .xml están al día con sus SVG?
-python scripts/compare.py --ref main -v              # qué iconos/títulos cambiaron respecto a main
+python scripts/compare.py --ref origin/main -v       # qué iconos/títulos cambiaron respecto a main
 ```
 
-Todos los comandos aceptan `--help`, y `build.py` acepta `--dry-run` para ver qué haría sin escribir nada.
+Todos los comandos aceptan `--help`. `normalize`, `pack` y `all` aceptan `--dry-run` para ver qué harían sin
+escribir nada. `compare.py` empareja los iconos **por posición**: si añades o quitas iconos, los que van
+detrás aparecerán como cambiados; úsalo para comprobar que *no* cambia nada inesperado.
 
 ## Añadir iconos a una librería existente
 
-1. Copia los SVG originales a `svg/<librería>/source/`. El nombre del archivo es el título del icono
-   (después de aplicar las reglas de título de la librería; ver más abajo).
+1. Copia los SVG originales a la carpeta `<source>` de la librería (`build.py list -v`). El nombre del
+   archivo es el título del icono (después de aplicar las reglas de título; ver más abajo). Si te
+   equivocas de carpeta, `pack` falla y te dice qué SVG no pertenece a ninguna librería.
 2. Normaliza y empaqueta:
    ```bash
    python scripts/build.py all -l "<librería>"
    ```
    Con la misma versión de Inkscape, los SVG existentes se regeneran idénticos y solo aparecen los nuevos.
-   Con otra versión pueden variar decimales del `transform` en todos: si solo añades iconos, puedes
-   descartar esos cambios con `git checkout -- "svg/<librería>/64"` antes de añadir los nuevos.
+   Con otra versión pueden variar decimales del `transform` en todos. Si solo querías añadir iconos,
+   restaura los existentes y vuelve a empaquetar:
+   ```bash
+   git restore "<64>"                                # deshace los SVG modificados (los nuevos siguen)
+   python scripts/build.py pack -l "<librería>"
+   ```
 3. Comprueba y revisa:
    ```bash
    python scripts/validate.py
    ```
    Abre el `.xml` en Draw.io (`Archivo → Abrir biblioteca`) y mira que los iconos se vean bien.
-4. Commitea **los tres**: `svg/<librería>/source/`, `svg/<librería>/64/` y `libraries/<…>.xml`.
-5. Anota el origen y la licencia en [docs/SOURCES.md](docs/SOURCES.md).
+4. Commitea **los tres**: `<source>`, `<64>` y `libraries/<…>.xml`.
+5. Anota el origen y la licencia en [docs/SOURCES.md](docs/SOURCES.md) y actualiza el número de iconos
+   en la tabla y en la introducción de `README.md` y `README.es.md`.
 
 **Solo SVG vectoriales.** Un SVG que embeba imágenes (`<image>` con PNG/JPG) hace fallar `validate.py`:
 busca una versión vectorial. Si no existe, justifícalo en `docs/SOURCES.md` y añade el icono a
 `RASTER_ALLOWLIST` en `scripts/validate.py`.
 
-Para **quitar o renombrar** un icono, hazlo en `source/` y ejecuta `build.py all -l "<librería>" --prune`:
-`--prune` borra de `64/` los SVG cuyo original ya no existe (sin él, `pack` falla para avisarte).
+Para **quitar o renombrar** un icono, hazlo en `<source>` y ejecuta `build.py all -l "<librería>" --prune`:
+`--prune` borra de `<64>` los SVG cuyo original ya no existe (sin él, `pack` falla para avisarte). Si el
+icono tenía un título manual, cambia también su clave en `title_overrides`.
 
 ## Añadir una librería nueva
 
@@ -85,7 +100,9 @@ Para **quitar o renombrar** un icono, hazlo en `source/` y ejecuta `build.py all
    }
    ```
 3. `python scripts/build.py all -l "Mi Librería"` y `python scripts/validate.py`.
-4. Añádela a la lista de librerías de `README.md` y `README.es.md`, y su origen a `docs/SOURCES.md`.
+4. Añádela a la tabla de `README.md` y `README.es.md` (y actualiza los totales de la introducción), y su
+   origen a `docs/SOURCES.md`.
+5. Commitea `libraries.json`, las dos carpetas de SVG y el `.xml` nuevo.
 
 ## Títulos de los iconos
 
@@ -118,11 +135,12 @@ La CI ([validate.yml](.github/workflows/validate.yml)) ejecuta esto en Linux con
 pásalo en local para no llevarte sorpresas:
 
 ```bash
-python scripts/validate.py          # OK
-python scripts/build.py pack --check  # OK: 30 librería(s) al día
+python scripts/validate.py            # OK
+python scripts/build.py pack --check  # OK: N librería(s) al día
+python scripts/package.py             # genera dist/drawio-icon-libraries.zip
 ```
 
-- [ ] SVG originales en `svg/<librería>/source/` y normalizados en `svg/<librería>/64/`.
+- [ ] SVG originales en `<source>` y normalizados en `<64>`.
 - [ ] `.xml` regenerado con `build.py` (nunca editado a mano: `pack --check` lo detecta).
 - [ ] Títulos claros y sin duplicados dentro de la librería.
 - [ ] Iconos revisados en Draw.io (adjunta una captura al PR si cambian iconos).
@@ -137,10 +155,10 @@ python scripts/build.py pack --check  # OK: 30 librería(s) al día
 ## Publicar una versión (mantenedores)
 
 1. Actualiza [CHANGELOG.md](CHANGELOG.md) y haz merge a `main`.
-2. Crea y sube el tag desde `main`:
+2. Crea y sube el tag desde `main` (la primera versión es `v1.0.0`; las siguientes, `v1.1.0`, `v1.0.1`…):
    ```bash
-   git tag v1.1.0
-   git push origin v1.1.0
+   git tag v1.0.0
+   git push origin v1.0.0
    ```
 3. [release.yml](.github/workflows/release.yml) valida, genera `drawio-icon-libraries.zip` y publica la
    release. El botón de descarga del README apunta siempre a la última.
@@ -149,8 +167,10 @@ python scripts/build.py pack --check  # OK: 30 librería(s) al día
 
 | Síntoma | Causa y solución |
 |---|---|
-| `No se encontró Inkscape` | Instálalo o indica la ruta: `--inkscape "C:\Program Files\Inkscape\bin\inkscape.com"` o la variable `INKSCAPE`. |
+| `No se encontró Inkscape` | Instálalo o indica el **ejecutable** (no la carpeta): `--inkscape "C:\Program Files\Inkscape\bin\inkscape.com"` o la variable `INKSCAPE`. |
+| `SVG fuera de las carpetas de libraries.json` | Copiaste un SVG a una carpeta que no es la `source/` de ninguna librería. Muévelo a la correcta (`build.py list -v`). |
 | `pack --check`: `DESACTUALIZADO` | Cambiaste SVG, títulos o editaste un `.xml` a mano. Ejecuta `python scripts/build.py pack` y commitea el resultado. |
-| `SVG normalizados sin original` | Quitaste o renombraste un SVG de `source/`. Ejecuta `normalize --prune`. |
+| `SVG normalizados sin original` | Quitaste o renombraste un SVG de `source/`. Ejecuta `python scripts/build.py all -l "<librería>" --prune`. |
+| `title_overrides sin SVG correspondiente` | Renombraste o quitaste un icono con título manual. Actualiza su clave en `libraries.json`. |
 | `ya está normalizado` | Has puesto en `source/` un SVG de `64/`. Usa el SVG original del proveedor. |
-| Avisos `LF will be replaced by CRLF` en Windows | Inofensivos: `.gitattributes` guarda los SVG y `.xml` con LF y `pack` es independiente del SO. |
+| Avisos `LF will be replaced by CRLF` en Windows | Inofensivos (vienen de `core.autocrlf`). Los SVG y `.xml` se guardan siempre con LF por `.gitattributes`, y `pack` es independiente del SO; en el resto de archivos de texto solo cambia la copia local. |

@@ -4,7 +4,7 @@ Flujo:  svg/<…>/source  --normalize-->  svg/<…>/64  --pack-->  libraries/<�
 
 Uso:
     python scripts/build.py list
-    python scripts/build.py pack                       # regenera las 30 librerías (solo stdlib)
+    python scripts/build.py pack                       # regenera todas las librerías (solo stdlib)
     python scripts/build.py pack --check               # no escribe; falla si algún XML difiere
     python scripts/build.py normalize -l "Azure Web"   # requiere Inkscape + Pillow
     python scripts/build.py all -l "Azure Web"         # normalize + pack
@@ -98,13 +98,30 @@ def orphans(lib: Library) -> tuple[list[str], list[str]]:
 
 # ---------------------------------------------------------------- comandos --
 
+def stray_svgs(m: manifest_mod.Manifest) -> list[str]:
+    """SVG bajo svg/ que no están en ninguna carpeta source/normalized del manifiesto.
+
+    Suelen ser iconos copiados a una carpeta equivocada: ningún paso los procesaría
+    y, sin este aviso, todas las comprobaciones saldrían en verde.
+    """
+    svg_root = m.root / "svg"
+    if not svg_root.is_dir():
+        return []
+    known = {d.resolve() for lib in m.libraries for d in (lib.source, lib.normalized)}
+    return sorted(rel(p, m.root) for p in svg_root.rglob("*.svg") if p.parent.resolve() not in known)
+
+
 def cmd_list(args) -> int:
     m = manifest_mod.load(args.root.resolve())
     for lib in m.libraries:
         n = len(mxlibrary.list_svgs(lib.normalized)) if lib.normalized.is_dir() else 0
         rules = ", ".join(lib.title_rules) or "—"
         print(f"{lib.name:<34} {n:>4} iconos  reglas: {rules}")
+        if args.verbose:
+            print(f"{'':<34} source: {rel(lib.source, m.root)}  ->  {rel(lib.output, m.root)}")
     print(f"\n{len(m.libraries)} librerías. Reglas de título disponibles: {', '.join(sorted(RULES))}")
+    if not args.verbose:
+        print("Usa 'list -v' para ver la carpeta source/ de cada librería (ahí van los SVG nuevos).")
     return 0
 
 
@@ -147,7 +164,7 @@ def do_normalize(libs: list[Library], opts, root: Path, args) -> int:
                     (lib.normalized / name).unlink()
                 print(f"[{lib.name}] eliminados {len(extra)} SVG normalizados sin original: {', '.join(extra)}")
             else:
-                verb = "se eliminarían" if args.prune else "sobran (usa --prune para eliminarlos)"
+                verb = "se eliminarían" if args.prune else f'sobran (ejecuta: python scripts/build.py all -l "{lib.name}" --prune)'
                 print(f"[{lib.name}] {len(extra)} SVG normalizados sin original {verb}: {', '.join(extra)}",
                       file=sys.stderr)
                 if not args.prune:
@@ -155,9 +172,17 @@ def do_normalize(libs: list[Library], opts, root: Path, args) -> int:
     return 1 if errors else 0
 
 
-def do_pack(libs: list[Library], root: Path, args) -> int:
+def do_pack(libs: list[Library], root: Path, args, stray: list[str] = ()) -> int:
     errors = 0
     stale: list[str] = []
+    changed_count = 0
+    if stray:
+        print(f"{len(stray)} SVG fuera de las carpetas de libraries.json (no entran en ninguna librería):",
+              file=sys.stderr)
+        for path in stray:
+            print(f"  {path}", file=sys.stderr)
+        print("Muévelos a la carpeta source/ de su librería (ver 'build.py list -v').", file=sys.stderr)
+        errors += 1
     for lib in libs:
         if not lib.normalized.is_dir() or not mxlibrary.list_svgs(lib.normalized):
             print(f"[{lib.name}] sin SVG en {rel(lib.normalized, root)}", file=sys.stderr)
@@ -165,12 +190,12 @@ def do_pack(libs: list[Library], root: Path, args) -> int:
             continue
         extra, missing = orphans(lib)
         if extra or missing:
+            fix = f'python scripts/build.py all -l "{lib.name}"' + (" --prune" if extra else "")
             if extra:
-                print(f"[{lib.name}] SVG normalizados sin original (ejecuta normalize --prune): {', '.join(extra)}",
-                      file=sys.stderr)
+                print(f"[{lib.name}] SVG normalizados sin original: {', '.join(extra)}", file=sys.stderr)
             if missing:
-                print(f"[{lib.name}] originales sin normalizar (ejecuta normalize): {', '.join(missing)}",
-                      file=sys.stderr)
+                print(f"[{lib.name}] originales sin normalizar: {', '.join(missing)}", file=sys.stderr)
+            print(f"[{lib.name}] ejecuta: {fix}", file=sys.stderr)
             errors += 1
             continue
 
@@ -196,6 +221,7 @@ def do_pack(libs: list[Library], root: Path, args) -> int:
             continue
         changed = not lib.output.is_file() or lib.output.read_bytes() != new
         mxlibrary.write(items, lib.output)
+        changed_count += changed
         if changed or args.verbose:
             print(f"[{lib.name}] {len(items)} iconos -> {target}{'' if changed else ' (sin cambios)'}")
 
@@ -203,10 +229,21 @@ def do_pack(libs: list[Library], root: Path, args) -> int:
         if stale:
             print(f"\n{len(stale)} librería(s) no coinciden con sus SVG. Ejecuta: python scripts/build.py pack")
         if errors:
-            print(f"\n{errors} librería(s) con errores (ver arriba)")
+            print(f"\n{errors} error(es) (ver arriba)")
         if not stale and not errors:
             print(f"OK: {len(libs)} librería(s) al día")
+    elif not args.dry_run:
+        done = len(libs) - (errors - (1 if stray else 0))
+        print(f"{done} librería(s) generada(s): {changed_count} actualizada(s), {done - changed_count} sin cambios"
+              + (f"; {errors} error(es) (ver arriba)" if errors else ""))
     return 1 if errors or stale else 0
+
+
+def manifest_stray(args) -> list[str]:
+    """SVG perdidos, solo en modo manifiesto (en modo suelto no hay manifiesto que comparar)."""
+    if args.input or args.output:
+        return []
+    return stray_svgs(manifest_mod.load(args.root.resolve()))
 
 
 def cmd_normalize(args) -> int:
@@ -216,7 +253,7 @@ def cmd_normalize(args) -> int:
 
 def cmd_pack(args) -> int:
     libs, _, root = resolve_targets(args)
-    return do_pack(libs, root, args)
+    return do_pack(libs, root, args, manifest_stray(args))
 
 
 def cmd_all(args) -> int:
@@ -227,7 +264,7 @@ def cmd_all(args) -> int:
     if rc:
         print("normalize falló; no se empaqueta", file=sys.stderr)
         return rc
-    return do_pack(libs, root, args)
+    return do_pack(libs, root, args, manifest_stray(args))
 
 
 # --------------------------------------------------------------------- CLI --
@@ -242,7 +279,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--root", type=Path, default=REPO_ROOT, help="raíz del repositorio (por defecto, la del script)")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    sub.add_parser("list", help="muestra las librerías del manifiesto").set_defaults(func=cmd_list)
+    p_list = sub.add_parser("list", help="muestra las librerías del manifiesto (-v: con sus carpetas)")
+    p_list.add_argument("-v", "--verbose", action="store_true", help="muestra la carpeta source/ y el .xml de cada librería")
+    p_list.set_defaults(func=cmd_list)
 
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("-l", "--library", action="append", metavar="NOMBRE",
@@ -253,7 +292,9 @@ def build_parser() -> argparse.ArgumentParser:
     common.add_argument("-v", "--verbose", action="store_true")
 
     norm = argparse.ArgumentParser(add_help=False)
-    norm.add_argument("--inkscape", metavar="RUTA", help="binario de Inkscape (por defecto: $INKSCAPE o el PATH)")
+    norm.add_argument("--inkscape", metavar="RUTA",
+                      help=r"ejecutable de Inkscape, p. ej. C:\Program Files\Inkscape\bin\inkscape.com "
+                           "(por defecto: $INKSCAPE, el PATH o la ruta de instalación habitual)")
     norm.add_argument("--padding", type=float, help="margen interno en px del lienzo final (defecto: 3)")
     norm.add_argument("--alpha-cutoff", type=int, help="umbral de alfa 0–255 para medir el contenido (defecto: 80)")
     norm.add_argument("--render-px", type=int, help="ancho del PNG de medición (defecto: 1024)")
