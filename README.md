@@ -78,9 +78,10 @@ Each entry uses `w:64`, `h:64`, `aspect:"fixed"`, a readable `title` (e.g. `Batc
 ## ⬇️ Download
 
 [![Download libraries (ZIP)](https://img.shields.io/badge/Download-libraries%20ZIP-brightgreen)](https://github.com/joelarbaiza/drawio-icon-libraries/releases/latest/download/drawio-icon-libraries.zip)
-[![Latest release](https://img.shields.io/github/v/release/joelarbaiza/drawio-icon-libraries)](https://github.com/joelarbaiza/drawio-icon-libraries/releases/latest)
+[![Latest version](https://img.shields.io/github/v/release/joelarbaiza/drawio-icon-libraries?label=latest%20version&color=blue)](https://github.com/joelarbaiza/drawio-icon-libraries/releases/latest)
 
-The ZIP contains every `.xml` library from `/libraries`, plus `LICENSE` and `SOURCES.md` (origin and license of the icons). It is built automatically for each release.
+- **Download libraries ZIP** downloads the latest version directly: every `.xml` library from `/libraries`, plus `LICENSE` and `SOURCES.md` (origin and license of the icons).
+- **latest version** shows which version that is and opens its [release notes](https://github.com/joelarbaiza/drawio-icon-libraries/releases/latest) (what changed). It updates automatically with each release.
 
 ---
 

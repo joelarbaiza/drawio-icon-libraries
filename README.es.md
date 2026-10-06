@@ -78,9 +78,10 @@ Cada elemento lleva `w:64`, `h:64`, `aspect:"fixed"`, un `title` legible (p. ej.
 ## ⬇️ Descarga
 
 [![Descargar librerías (ZIP)](https://img.shields.io/badge/Descargar-librer%C3%ADas%20ZIP-brightgreen)](https://github.com/joelarbaiza/drawio-icon-libraries/releases/latest/download/drawio-icon-libraries.zip)
-[![Última versión](https://img.shields.io/github/v/release/joelarbaiza/drawio-icon-libraries)](https://github.com/joelarbaiza/drawio-icon-libraries/releases/latest)
+[![Última versión](https://img.shields.io/github/v/release/joelarbaiza/drawio-icon-libraries?label=%C3%BAltima%20versi%C3%B3n&color=blue)](https://github.com/joelarbaiza/drawio-icon-libraries/releases/latest)
 
-El ZIP contiene todas las librerías `.xml` de `/libraries`, además de `LICENSE` y `SOURCES.md` (origen y licencia de los iconos). Se genera automáticamente en cada versión publicada.
+- **Descargar librerías ZIP** descarga directamente la última versión: todas las librerías `.xml` de `/libraries`, además de `LICENSE` y `SOURCES.md` (origen y licencia de los iconos).
+- **última versión** muestra cuál es esa versión y abre sus [notas de la versión](https://github.com/joelarbaiza/drawio-icon-libraries/releases/latest) (qué cambió). Se actualiza sola en cada publicación.
 
 ---
 
