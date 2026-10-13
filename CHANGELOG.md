@@ -5,6 +5,12 @@ las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+### Cambiado
+- Instalador de escritorio: Draw.io se abre a través del Explorador de Windows, así su aviso interno
+  «DeprecationWarning: Passing args to a child process…» ya no aparece en la ventana del instalador.
+- README: instrucciones del instalador más completas (cerrar Draw.io antes, carpeta de instalación,
+  opción `-InstallDir`).
+
 ## [1.3.0] - 2026-10-06
 
 ### Añadido
