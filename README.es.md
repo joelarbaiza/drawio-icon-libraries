@@ -92,12 +92,16 @@ GitHub abre los enlaces en la misma pestaña; usa **Ctrl/⌘ + clic** o **clic c
 
 **Draw.io de escritorio (Windows) — instalador:**
 
-1. [Descarga el ZIP](#descarga), descomprímelo y haz doble clic en **`install-drawio-desktop.bat`**.
+1. Cierra Draw.io, [descarga el ZIP](#descarga), descomprímelo y haz doble clic en **`install-drawio-desktop.bat`**.
    (O, en PowerShell y sin descargar nada: `irm https://raw.githubusercontent.com/joelarbaiza/drawio-icon-libraries/main/scripts/install-drawio-desktop.ps1 | iex`.)
 2. **Solo la primera vez:** en Draw.io, importa cada librería que quieras con `Archivo → Abrir biblioteca desde →
    Archivo…`, eligiendo los `.xml` de la carpeta que abre el instalador. Draw.io las recuerda.
 3. **Para actualizar:** vuelve a ejecutar el instalador. Reemplaza los archivos allí donde Draw.io ya los carga:
    verás los iconos nuevos sin duplicados y sin reimportar nada. También detecta las librerías que importaste a mano.
+
+La primera vez, las librerías se instalan en `%LOCALAPPDATA%\drawio-icon-libraries\libraries` y el instalador
+recuerda esa carpeta para las siguientes actualizaciones. Si importaste las librerías desde otra carpeta y el
+instalador no la detecta, indícasela desde PowerShell: `.\install-drawio-desktop.ps1 -InstallDir "C:uta\de\esa\carpeta"`.
 
 > Windows puede mostrar un aviso de SmartScreen con un script descargado: **Más información → Ejecutar de todas
 > formas**. Draw.io de escritorio solo lee archivos locales que abres con su propio diálogo; por eso la primera
@@ -155,7 +159,8 @@ libraries/<…>.xml          librerías de Draw.io (generadas — no se editan a
 svg/…/<librería>/source/   SVG originales del proveedor (carpeta exacta: `build.py list -v`)
 svg/…/<librería>/64/       SVG normalizados a 64×64 (generados, se commitean)
 libraries.json             manifiesto: qué carpeta genera cada librería y cómo se titulan los iconos
-scripts/                   build.py · validate.py · compare.py · package.py · iconlib/
+scripts/                   build.py · validate.py · compare.py · package.py · readme.py · release.py · iconlib/
+                           install-drawio-desktop.bat / .ps1 (instalador de Draw.io de escritorio, Windows; va en el ZIP)
 docs/                      SOURCES.md (origen y condiciones) · ARCHITECTURE.md (cómo funciona)
 ```
 
