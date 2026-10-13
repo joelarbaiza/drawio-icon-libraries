@@ -5,6 +5,8 @@ las versiones siguen [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+## [1.3.1] - 2026-10-13
+
 ### Cambiado
 - Instalador de escritorio: Draw.io se abre a través del Explorador de Windows, así su aviso interno
   «DeprecationWarning: Passing args to a child process…» ya no aparece en la ventana del instalador.
@@ -90,6 +92,7 @@ Primera versión con pipeline reproducible, CI y releases.
 - 31 notebooks de Jupyter (disponibles en el tag `v0-legacy`).
 - 3.010 PNG y SVG de Fabric sin uso (33 MB), también del historial de git.
 
+[1.3.1]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.3.1
 [1.3.0]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.3.0
 [1.2.0]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.2.0
 [1.1.1]: https://github.com/joelarbaiza/drawio-icon-libraries/releases/tag/v1.1.1
