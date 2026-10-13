@@ -79,6 +79,12 @@ function Find-DrawIo {
     return $null
 }
 
+# Abre Draw.io a través del Explorador: así no se conecta a la consola del instalador y sus avisos
+# internos (p. ej. DeprecationWarning de Node) no aparecen en esta ventana.
+function Start-DrawIo([string]$Exe) {
+    Start-Process -FilePath 'explorer.exe' -ArgumentList "`"$Exe`""
+}
+
 function Wait-DrawIoClosed {
     while (Get-Process -Name 'draw.io' -ErrorAction SilentlyContinue) {
         # Sin consola interactiva no se puede esperar al usuario: evita un bucle infinito.
@@ -285,7 +291,7 @@ function Invoke-Install {
     Write-Step 'Listo'
     if ($pending.Count -eq 0) {
         Write-Ok 'Draw.io ya tenía estas librerías cargadas: al abrirlo verás los iconos actualizados.'
-        if (-not $NoLaunch) { Start-Process -FilePath $drawio }
+        if (-not $NoLaunch) { Start-DrawIo $drawio }
         return
     }
 
@@ -294,7 +300,7 @@ function Invoke-Install {
         Write-Ok "Librerías actualizadas en $InstallDir."
         Write-Note 'Las que ya tenías importadas desde esta carpeta se verán actualizadas al abrir Draw.io.'
         Write-Note 'Si falta alguna: Archivo > Abrir biblioteca desde > Archivo... y elige su .xml en esa carpeta.'
-        if (-not $NoLaunch) { Start-Process -FilePath $drawio }
+        if (-not $NoLaunch) { Start-DrawIo $drawio }
         return
     }
     if ($pending.Count -lt $selected.Count) {
@@ -310,7 +316,7 @@ function Invoke-Install {
 
     if (-not $NoLaunch) {
         Start-Process -FilePath 'explorer.exe' -ArgumentList "`"$InstallDir`""
-        Start-Process -FilePath $drawio
+        Start-DrawIo $drawio
     }
 }
 
