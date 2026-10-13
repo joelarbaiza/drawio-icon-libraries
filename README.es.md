@@ -101,7 +101,7 @@ GitHub abre los enlaces en la misma pestaña; usa **Ctrl/⌘ + clic** o **clic c
 
 La primera vez, las librerías se instalan en `%LOCALAPPDATA%\drawio-icon-libraries\libraries` y el instalador
 recuerda esa carpeta para las siguientes actualizaciones. Si importaste las librerías desde otra carpeta y el
-instalador no la detecta, indícasela desde PowerShell: `.\install-drawio-desktop.ps1 -InstallDir "C:uta\de\esa\carpeta"`.
+instalador no la detecta, indícasela desde PowerShell: `.\install-drawio-desktop.ps1 -InstallDir "C:\ruta\de\esa\carpeta"`.
 
 > Windows puede mostrar un aviso de SmartScreen con un script descargado: **Más información → Ejecutar de todas
 > formas**. Draw.io de escritorio solo lee archivos locales que abres con su propio diálogo; por eso la primera

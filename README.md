@@ -100,7 +100,7 @@ GitHub opens links in the same tab; use **Ctrl/⌘ + click** or **middle-click**
 
 The first time, the libraries go to `%LOCALAPPDATA%\drawio-icon-libraries\libraries`, and the installer remembers
 that folder for later updates. If you imported the libraries from another folder and the installer doesn't detect it,
-point it there from PowerShell: `.\install-drawio-desktop.ps1 -InstallDir "C:\path	o	hatolder"`.
+point it there from PowerShell: `.\install-drawio-desktop.ps1 -InstallDir "C:\path\to\that\folder"`.
 
 > Windows may show a SmartScreen warning for a downloaded script: **More info → Run anyway**. Draw.io desktop
 > only reads local files you open through its own dialog, which is why the first import is manual.
