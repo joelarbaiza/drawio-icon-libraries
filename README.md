@@ -91,12 +91,16 @@ GitHub opens links in the same tab; use **Ctrl/⌘ + click** or **middle-click**
 
 **Draw.io desktop app (Windows) — installer:**
 
-1. [Download the ZIP](#download), unzip it and double-click **`install-drawio-desktop.bat`**.
+1. Close Draw.io, [download the ZIP](#download), unzip it and double-click **`install-drawio-desktop.bat`**.
    (Or, in PowerShell, without downloading anything: `irm https://raw.githubusercontent.com/joelarbaiza/drawio-icon-libraries/main/scripts/install-drawio-desktop.ps1 | iex`.)
 2. **First time only:** in Draw.io, import each library you want with `File → Open Library from → File…`,
    choosing the `.xml` files in the folder the installer opens. Draw.io remembers them.
 3. **To update:** run the installer again. It replaces the files where Draw.io already loads them, so you get
    the new icons with no duplicates and nothing to re-import. It also detects libraries you imported by hand before.
+
+The first time, the libraries go to `%LOCALAPPDATA%\drawio-icon-libraries\libraries`, and the installer remembers
+that folder for later updates. If you imported the libraries from another folder and the installer doesn't detect it,
+point it there from PowerShell: `.\install-drawio-desktop.ps1 -InstallDir "C:\path\to\that\folder"`.
 
 > Windows may show a SmartScreen warning for a downloaded script: **More info → Run anyway**. Draw.io desktop
 > only reads local files you open through its own dialog, which is why the first import is manual.
@@ -153,7 +157,8 @@ libraries/<…>.xml          Draw.io libraries (generated — do not edit by han
 svg/…/<library>/source/    original SVGs from the vendor (exact folder: `build.py list -v`)
 svg/…/<library>/64/        SVGs normalized to 64×64 (generated, committed)
 libraries.json             manifest: which folder builds which library, and how icons are titled
-scripts/                   build.py · validate.py · compare.py · package.py · iconlib/
+scripts/                   build.py · validate.py · compare.py · package.py · readme.py · release.py · iconlib/
+                           install-drawio-desktop.bat / .ps1 (Draw.io desktop installer, Windows; shipped in the ZIP)
 docs/                      SOURCES.md (icon origin and terms) · ARCHITECTURE.md (how it works)
 ```
 
